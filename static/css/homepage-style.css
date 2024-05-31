@@ -1,0 +1,147 @@
+body{
+    background-color: blue;
+    background-image: linear-gradient(#1e90ff, #00008b);
+    color:white;
+    font-family: Oswald, Verdana, serif;
+    font-size: 20px;
+}
+
+header{
+    height: 100px;
+    background-color: #03045e;
+}
+
+a{
+    text-decoration: none;
+    color:white;
+}
+
+#header_menu{
+    display:block;
+}
+
+#home-link{
+    display: inline-block;
+    margin-left: 100px;
+    margin-top:30px;
+}
+
+#home-link p{
+    font-size: 25px;
+    letter-spacing: 2px;
+    font-family: Oswald, Verdana, serif;
+}
+
+#home-link img{
+    margin-right: 10px;
+    margin-bottom:5px;
+}
+
+.dropdown{
+    display: inline-block;
+    position: absolute;
+    top:22px;
+    margin-left:150px;
+}
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited, .btn-primary:focus {
+    background-color: transparent; !important;
+    border:none;!important;
+    color:white;!important;
+    font-size: 25px;
+    font-family: Oswald, Verdana, serif;
+    letter-spacing: 2px;
+}
+
+.dropdown-menu a{
+    font-size: 15px;
+    font-family: Oswald, Verdana, serif;
+    letter-spacing: 2px;
+}
+
+.dropdown img{
+    margin-right:10px;
+}
+
+h1{
+    font-family: Lobster, verdana, serif;
+    font-size: 60px;
+    color:white;
+    position: absolute;
+    top:15px;
+    right:45%;
+    margin: 0;
+    padding:0;
+}
+
+header input{
+    min-width:200px;
+}
+
+header form{
+    display: inline-block;
+    position: absolute;
+    top:30px;
+    right: 150px;
+}
+
+.icon{
+    position: absolute;
+    display: inline-block;
+    right: -30px;
+    top: -50px;
+    margin: 0 0 20px 20px;
+}
+
+/* FINE LAYOUT */
+
+/* INIZIO HOMEPAGE */
+
+.main_content{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: 100px;
+    margin-left: 80px;
+    margin-top:50px;
+}
+
+.main_song{
+    position: relative;
+    width: 50%;
+    margin-bottom: 100px;
+}
+
+.main_song img{
+    border-radius: 20px;
+    opacity: 1;
+    display: block;
+    height: auto;
+    transition: .5s ease;
+    backface-visibility: hidden;
+}
+
+.middle {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%)
+}
+
+.main_song:hover .image {
+    opacity: 0.3;
+}
+
+.main_song:hover .middle {
+    opacity: 1;
+}
+
+.middle p{
+    background-color: #03045e;
+    width:100%;
+    color: white;
+    font-size: 16px;
+    padding: 16px 32px;
+}
