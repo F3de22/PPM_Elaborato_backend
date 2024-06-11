@@ -7,10 +7,12 @@
 
 
 {% block main-content %}
-    <p><b>USER LOGIN</b></p>
-    <form class="form-with-validation" action="/users/login/" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <button class="form-submit">Submit</button>
-    </form>
+    <div class="login-form">
+        <p><b>USER LOGIN</b></p>
+        <form class="form-with-validation" action="{% url 'users:login' %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <button class="form-submit">Submit</button>
+        </form>
+    </div>
 {% endblock %}

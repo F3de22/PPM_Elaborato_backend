@@ -95,7 +95,7 @@ header form{
 
 /* FINE LAYOUT */
 
-/* INIZIO HOMEPAGE */
+/* HOMEPAGE */
 
 .main_content{
     display: grid;
@@ -144,4 +144,83 @@ header form{
     color: white;
     font-size: 16px;
     padding: 16px 32px;
+}
+
+/* LOGIN PAGE */
+
+.login-form{
+    width: 50%;
+    margin: 100px auto 0 auto;
+    padding:20px 50px;
+    border: 3px solid black;
+    border-radius: 20px;
+}
+
+.login-form p{
+    text-align: center;
+    font-size: 100px;
+}
+
+.form-with-validation div {
+    display: flex;
+    flex-flow: column;
+    gap: 0.5rem;
+}
+
+.form-with-validation input {
+    padding: 0.25rem;
+    max-width: 300px;
+}
+
+.form-submit {
+    padding: 0.5rem;
+    margin-top: 20px;
+    border-radius: 10px;
+    width: 125px;
+}
+
+.helptext {
+    font-size: 1rem;
+    margin-left: 1rem;
+}
+
+.helptext ul {
+    list-style-type: none;
+}
+
+.errorlist {
+    color: #F00;
+    margin-left: 2rem;
+}
+
+.errorlist li::marker {
+    content: '🚨 ';
+}
+
+/* REGISTRATION PAGE */
+
+.register-form{
+    width: 50%;
+    margin: 100px auto 0 auto;
+    padding:30px 50px;
+    border: 3px solid black;
+    border-radius: 20px;
+}
+
+.register-form p{
+    text-align: center;
+    font-size: 80px;
+}
+
+.form-with-validation{
+    margin-left:280px;
+}
+
+/* PLAYLIST */
+
+.playlist_header img{
+    background-color: #FF0000;
+    position: absolute;
+    left:100px;
+    top:1500px;
 }
