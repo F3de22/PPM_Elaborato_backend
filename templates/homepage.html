@@ -7,9 +7,35 @@
 
 
 {% block main-content %}
+    <div id="Recommends" style="padding: 5px">
+        <h2>Recommended</h2>
+        <div id="playlist">
+            <div class="main-carousel" data-flickity='{"groupCells":5 , "contain": true, "pageDots": false, "draggable": false, "cellAlign": "left", "lazyLoad": true}'>
+                {% for i in Recommends %}
+                    <div class="carousel-cell">
+                        <div class="song-card">
+                            <div class="containers">
+                                <img src="{{i.album.images.0.url}}" id="A_{{i.id}}" />
+                                <div class="overlaya"></div>
+                                <div>
+                                    <li><a class="play-btn-spotify-songs" href="{{i.preview_url}}" id="{{i.id}}"><i
+                                            class="fas fa-play-circle"></i></a>
+                                    </li>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="songName" id="B_{{i.id}}">{{i.name}}</p>
+                            </div>
+                            <p class="movieName" id="C_{{i.id}}">{{i.album.name}}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
     <div class="main_content">
         <section class="main_song">
-            <img src="https://placehold.co/300x300/orange/white" alt="song cover">
+            <img src="https://placehold.co/200x200/orange/white" alt="song cover">
             <div class="middle">
                 <p class="song-title">Song #1</p>
                 <p class="artist">Artist #1</p>
@@ -17,7 +43,7 @@
             </div>
         </section>
         <section class="main_song">
-            <img src="https://placehold.co/300x300/orange/white" alt="song cover">
+            <img src="https://placehold.co/200x200/orange/white" alt="song cover">
             <div class="middle">
                 <p class="song-title">Song #1</p>
                 <p class="artist">Artist #1</p>
@@ -25,7 +51,7 @@
             </div>
         </section>
         <section class="main_song">
-            <img src="https://placehold.co/300x300/orange/white" alt="song cover">
+            <img src="https://placehold.co/200x200/orange/white" alt="song cover">
             <div class="middle">
                 <p class="song-title">Song #1</p>
                 <p class="artist">Artist #1</p>
@@ -33,7 +59,7 @@
             </div>
         </section>
         <section class="main_song">
-            <img src="https://placehold.co/300x300/orange/white" alt="song cover">
+            <img src="https://placehold.co/200x200/orange/white" alt="song cover">
             <div class="middle">
                 <p class="song-title">Song #1</p>
                 <p class="artist">Artist #1</p>

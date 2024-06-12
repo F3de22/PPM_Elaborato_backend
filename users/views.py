@@ -38,3 +38,12 @@ def logout_view(request):
         return redirect('/')
     except:
         return redirect("/")
+
+
+def logout(request):
+    try:
+        auth.logout(request)
+        messages.info(request,"User Logged Out!")
+        return redirect('/')
+    except:
+        return redirect("/")

@@ -24,6 +24,7 @@
             <a href="{% url 'homepage' %}" id="home-link">
                 <p><img src="media/images/home.png" width="30px" alt="home image">HOME</p>
             </a>
+        {% if user.is_authenticated %}
             <div class="dropdown">
                 <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="media/images/headphones-2-48.png" width="30px">LIBRARY
@@ -34,20 +35,88 @@
                     <li class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="#">+ CREATE A NEW PLAYLIST</a></li>
                 </ul>
+        {% else %}
+            <button class="btn btn-primary dropdown-toggle dropdown">
+                <img src="media/images/headphones-2-48.png" width="30px">LIBRARY
+            </button>
+        {% endif %}
             </div>
             <h1><a href="{% url 'homepage' %}">PPMusic</a></h1>
             <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
-            <a href="{% url 'users:login' %}"><img src="media/images/user_icon.png" class="icon" width="200px" alt="login icon"></a>
+            {% if user.is_authenticated %}
+                <div class="welcome">
+                    <h4>Welcome, {{user.username}}!</h4>
+                    <a href="users/logout">Log Out</a>
+                </div>
+            {% else %}
+                <a href="{% url 'users:login' %}"><img src="media/images/user_icon.png" class="icon"></a>
+            {% endif %}
         </nav>
         {% endblock %}
     </header>
 
     <main>
     {% block main-content %}
-    	Page content
+        <div id='modal-wrapper-playlist' class='modal'>
+            <form class='modal-content animate' action='/createPlaylist' method="POST">{% csrf_token %}
+                <h1>Create Playlist</h1>
+                <div class='container'>
+                    <input type='text' placeholder='Your New Playlist Name' name='playlist_name' required><br>
+                    <input type='submit' value="Create Playlist">
+                </div>
+            </form>
+        </div>
+
+
+
+
+
+        <script>
+            var modal_playlist = document.getElementById('modal-wrapper-playlist');
+            window.onclick = function (event) {
+                if (event.target == modal_playlist) {
+                    modal_playlist.style.display = 'none';
+                }
+            }
+
+            function audioBar(el) {
+                var main_id = el.id
+                var song_img = document.getElementById("A_" + main_id)
+                var song_name = document.getElementById("B_" + main_id)
+                var song_movie = document.getElementById("C_" + main_id)
+
+                var audio_img = document.getElementById("audio-img")
+                audio_img.src = song_img.src;
+
+                console.log(song_name.innerText);
+                console.log(song_movie.innerText);
+                document.getElementById("audio-song").innerText = song_name.innerText;
+                document.getElementById("audio-movie").innerText = song_movie.innerText;
+            }
+
+            var play = true;
+            var myAudio = document.getElementById("audioPlayer");
+            function onKeyDown(event) {
+                switch (event.keyCode) {
+                    case 32: //SpaceBar
+                        if (play) {
+                            myAudio.pause();
+                            play = false;
+                        } else {
+                            myAudio.play();
+                            play = true;
+                        }
+                        break;
+                }
+                return false;
+            }
+            window.addEventListener("keydown", onKeyDown, false);
+        </script>
+        {% block javascript %}
+        {% endblock %}
     {% endblock %}
     </main>
 
