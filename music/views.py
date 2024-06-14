@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Song, LikedSong, Playlist
 from django.contrib import messages
+from django.db.models import Case, When
 import json
 import random
 import os
@@ -71,20 +72,17 @@ def myPlaylist(request, id):
             randomImagePath = random.choice(images)
             randomImagePath = "PlaylistImages/" + randomImagePath
             print(randomImagePath)
-
             currPlaylist = Playlist.objects.filter(playlist_id=id).first()
             music_ids = currPlaylist.music_ids
             playlistSongs = []
             recommendedSingers = []
-
             for music_id in music_ids:
                 song = Song.objects.filter(song_id=music_id).first()
-
                 random.shuffle(recommendedSingers)
                 recommendedSingers = list(set(recommendedSingers))[:6]
                 playlistSongs.append(song)
 
-                return render(request, "myPlaylist.html", {'playlistInfo': currPlaylist,
+            return render(request, "myPlaylist.html", {'playlistInfo': currPlaylist,
                                                            'playlistSongs': playlistSongs,
                                                            'myPlaylists': myPlaylists,
                                                            'recommendedSingers': recommendedSingers,
@@ -154,7 +152,6 @@ def likesong(request):
                     ids.append(i.music_id)
                 preserved = Case(*[When(pk=pk, then=pos) for pos, pk in enumerate(ids)])
                 likedSongs = Song.objects.filter(song_id__in=ids).order_by(preserved)
-                print(recentSongs[0].movie)
                 return render(request, "likedSong.html", {'likedSongs': likedSongs})
         else:
             # print("User is not authenticated")

@@ -9,71 +9,117 @@
 {% block main-content %}
     <div id="Recommends" style="padding: 5px">
         <h2>Recommended</h2>
-        <div id="playlist">
-            <div class="main-carousel" data-flickity='{"groupCells":5 , "contain": true, "pageDots": false, "draggable": false, "cellAlign": "left", "lazyLoad": true}'>
-                {% for i in Recommends %}
-                    <div class="carousel-cell">
-                        <div class="song-card">
-                            <div class="containers">
-                                <img src="{{i.album.images.0.url}}" id="A_{{i.id}}" />
-                                <div class="overlaya"></div>
-                                <div>
-                                    <li><a class="play-btn-spotify-songs" href="{{i.preview_url}}" id="{{i.id}}"><i
-                                            class="fas fa-play-circle"></i></a>
-                                    </li>
-                                </div>
-                            </div>
+        <div class="main-carousel" data-flickity='{"groupCells":5 , "contain": true, "pageDots": false, "draggable": false, "cellAlign": "left", "lazyLoad": true}'>
+            {% for i in Recommends %}
+                <div class="carousel-cell">
+                    <section class="main_song">
+                        <div class="containers">
+                            <img src="{{i.album.images.0.url}}" id="A_{{i.id}}" alt="song cover">
+                            <div class="overlaya"></div>
                             <div>
-                                <p class="songName" id="B_{{i.id}}">{{i.name}}</p>
+                                <a class="play-btn-spotify-songs" href="{{i.preview_url}}" id="{{i.id}}"><i> class="fas fa-play-circle"></i></a>
                             </div>
-                            <p class="movieName" id="C_{{i.id}}">{{i.album.name}}</p>
                         </div>
-                    </div>
-                {% endfor %}
-            </div>
+                        <div>
+                            <p class="songName" id="B_{{i.id}}">{{i.name}}</p>
+                        </div>
+                    </section>
+                </div>
+            {% endfor %}
         </div>
     </div>
+
+
+    <h2>Your Paylists</h2>
+
     <div class="main_content">
-        <section class="main_song">
-            <img src="https://placehold.co/200x200/orange/white" alt="song cover">
-            <div class="middle">
-                <p class="song-title">Song #1</p>
-                <p class="artist">Artist #1</p>
-                <button class="play-button"><img src="../media/images/play-32.png"></button>
-            </div>
-        </section>
-        <section class="main_song">
-            <img src="https://placehold.co/200x200/orange/white" alt="song cover">
-            <div class="middle">
-                <p class="song-title">Song #1</p>
-                <p class="artist">Artist #1</p>
-                <button class="play-button"><img src="../media/images/play-32.png"></button>
-            </div>
-        </section>
-        <section class="main_song">
-            <img src="https://placehold.co/200x200/orange/white" alt="song cover">
-            <div class="middle">
-                <p class="song-title">Song #1</p>
-                <p class="artist">Artist #1</p>
-                <button class="play-button"><img src="../media/images/play-32.png"></button>
-            </div>
-        </section>
-        <section class="main_song">
-            <img src="https://placehold.co/200x200/orange/white" alt="song cover">
-            <div class="middle">
-                <p class="song-title">Song #1</p>
-                <p class="artist">Artist #1</p>
-                <button class="play-button"><img src="../media/images/play-32.png"></button>
-            </div>
-        </section>
         {% for playlist in Playlist %}
             <section class="main_song">
                 <img src="{{ playlist.image}}" alt="playlist image">
                 <div class="middle">
                     <p class="song-title">{{ playlist.name }}</p>
-                    <button class="play-button"><img src="../media/images/play-32.png"></button>
+                    <button class="play-button"><img src="../media/images/play-32.png" alt="play button"></button>
                 </div>
             </section>
         {% endfor %}
     </div>
+
+    <div id="divId">
+        {% if myPlaylists %}
+        <p style="margin: 5px; font-size: 0.75rem; font-weight: 700; color: rgb(138, 138, 138); text-align: left;">
+            Add This Song To Your Playlist</p>
+        {% for playlist in myPlaylists %}
+        <a class="left-panel-btn" id="D_{{playlist.playlist_id}}"
+            onclick="sendPostRequestPlaylistSong(this)">{{playlist.playlist_name}}</a><br>
+        {% endfor %}
+        {% else %}
+        <p style="margin: 5px; font-size: 0.8rem; font-weight: 700; color: rgb(138, 138, 138); text-align: left;">
+            You don't have any Playlist.</p>
+        <a class="glow-on-hover"
+            onclick="$('#divId').css({display: 'none'}), document.getElementById('modal-wrapper-playlist').style.display='block'"><i class="fas fa-plus"></i> Create Playlist</a>
+        {% endif %}
+    </div>
+
+
+    <div id="audio_main" class="audio-decs">
+        <div class="audio-data">
+            <div>
+                <img id="audio-img" src="/media/images/music-placeholder.png" alt="Image here">
+            </div>
+            <div id="text-song">
+                <h4 id="audio-song">Song Name</h4>
+                <p id="audio-movie">Artist Name</p>
+            </div>
+        </div>
+        <div style="margin: auto 0">
+            <audio preload="auto" controls id="audioPlayer">
+            <!-- <source type="audio/mp3" /> -->
+            </audio>
+        </div>
+    </div>
+
+
+
+<script>
+    var song_id_for_playlist;
+    function showDiv(el) {
+        // alert(el.id + " is Clicked!");
+        var div = $("#divId");
+        song_id_for_playlist = el.id;
+        div.css({
+            top: event.pageY,
+            left: event.pageX,
+            position: "absolute",
+            display: "block"
+        });
+
+    }
+    $(document).mouseup(function (e) {
+
+        var container = $("#divId");
+
+        if (!container.is(e.target) && container.has(e.target).length === 0) {
+
+            container.fadeOut();
+
+        }
+    });
+
+    function sendPostRequestPlaylistSong(el) {
+        // alert("Song ID: "+song_id_for_playlist+" | Playlist ID: "+el.id);
+        var data = song_id_for_playlist + "|" + el.id;
+        $.ajax({
+            "url": "addSongToPlaylist",
+            "type": "post",
+            "data": { 'data': data, 'csrfmiddlewaretoken': '{{ csrf_token }}' },
+            "success": showAlert('success', "Song Added In Your Playlist"),
+            // "error": error_callback
+        })
+        var div = $("#divId");
+        div.css({
+            transition: "0.3s",
+            display: "none"
+        });
+    }
+</script>
 {% endblock %}

@@ -36,9 +36,14 @@
                     <li><a class="dropdown-item" href="#">+ CREATE A NEW PLAYLIST</a></li>
                 </ul>
         {% else %}
-            <button class="btn btn-primary dropdown-toggle dropdown">
+            <button class="btn btn-primary dropdown-toggle dropdown" id="librarybtn">
                 <img src="../media/images/headphones-2-48.png" width="30px">LIBRARY
             </button>
+            <script>
+                $('#librarybtn').click(function () {
+                    $('#modal_trigger').click();
+                });
+            </script>
         {% endif %}
             </div>
             <h1><a href="{% url 'homepage' %}">PPMusic</a></h1>
@@ -52,7 +57,7 @@
                     <a href="users/logout">Log Out</a>
                 </div>
             {% else %}
-                <a href="{% url 'users:login' %}"><img src="../media/images/user_icon.png" class="icon"></a>
+                <a href="{% url 'users:login' %}"><img src="/media/images/user_icon.png" class="icon"></a>
             {% endif %}
         </nav>
         {% endblock %}
