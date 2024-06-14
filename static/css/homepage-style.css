@@ -8,7 +8,7 @@ body{
 }
 
 header{
-    height: 100px;
+    height: 10%;
     background-color: #03045e;
 }
 
@@ -91,7 +91,7 @@ header form{
     position: absolute;
     display: inline-block;
     right:2.5%;
-    top:10px;
+    top:0.5%;
     margin: 0 0 20px 20px;
 }
 
@@ -219,6 +219,12 @@ header form{
 
 .errorlist li::marker {
     content: '🚨 ';
+}
+
+.reg{
+    font-size: 2rem;
+    font-weight: 500;
+    margin: 30px 40% 0 40%;
 }
 
 /* REGISTRATION PAGE */

@@ -22,12 +22,12 @@
         {% block header %}
         <nav id="header_menu">
             <a href="{% url 'homepage' %}" id="home-link">
-                <p><img src="media/images/home.png" width="30px" alt="home image">HOME</p>
+                <p><img src="/media/images/home.png" width="30px" alt="home image">HOME</p>
             </a>
         {% if user.is_authenticated %}
             <div class="dropdown">
                 <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="media/images/headphones-2-48.png" width="30px">LIBRARY
+                    <img src="/media/images/headphones-2-48.png" width="30px">LIBRARY
                 </button>
                 <ul class="dropdown-menu" data-bs-theme="dark">
                     <li><a class="dropdown-item" href="#">YOUR PLAYLISTS</a></li>
@@ -37,7 +37,7 @@
                 </ul>
         {% else %}
             <button class="btn btn-primary dropdown-toggle dropdown">
-                <img src="media/images/headphones-2-48.png" width="30px">LIBRARY
+                <img src="../media/images/headphones-2-48.png" width="30px">LIBRARY
             </button>
         {% endif %}
             </div>
@@ -52,7 +52,7 @@
                     <a href="users/logout">Log Out</a>
                 </div>
             {% else %}
-                <a href="{% url 'users:login' %}"><img src="media/images/user_icon.png" class="icon"></a>
+                <a href="{% url 'users:login' %}"><img src="../media/images/user_icon.png" class="icon"></a>
             {% endif %}
         </nav>
         {% endblock %}

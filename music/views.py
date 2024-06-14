@@ -132,7 +132,7 @@ def likesong(request):
             # Extracting Playlists of the Authenticated User
             myPlaylists = list(Playlist.objects.filter(user=user))
         if user.is_authenticated:
-            if request.method=="POST":
+            if request.method == "POST":
                 song_id = request.POST["music_id"]
                 isPresent = False
                 if LikedSong.objects.filter(user=user, music_id=song_id).exists():
@@ -140,11 +140,11 @@ def likesong(request):
 
                 if isPresent:
                     LikedSong.objects.filter(user=user, music_id=song_id).delete()
-                    # print(f"Your song is removed from the liked song Id: {song_id}")
+                    # print(f"Your song is removed from the liked song id: {song_id}")
                 else:
-                    like = LikedSong(user = user, music_id = song_id)
+                    like = LikedSong(user=user, music_id=song_id)
                     like.save()
-                    # print(f"Your song successfully added Id: {song_id}")
+                    # print(f"Your song successfully added id: {song_id}")
                 message = "Successfull"
                 return HttpResponse(json.dumps({'message': message}))
             else:
@@ -154,8 +154,8 @@ def likesong(request):
                     ids.append(i.music_id)
                 preserved = Case(*[When(pk=pk, then=pos) for pos, pk in enumerate(ids)])
                 likedSongs = Song.objects.filter(song_id__in=ids).order_by(preserved)
-                # print(recentSongs[0].movie)
-                return render(request, "likedSong.html", {'likedSongs':likedSongs})
+                print(recentSongs[0].movie)
+                return render(request, "likedSong.html", {'likedSongs': likedSongs})
         else:
             # print("User is not authenticated")
             return redirect("/")

@@ -7,29 +7,25 @@
     <list default="true" id="40d238bf-badb-4aa1-aa10-39dde40a3919" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PPM_elaborato_backend/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/PPM_elaborato_backend/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PPM_elaborato_backend/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/PPM_elaborato_backend/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/music/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/music/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/music/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/music/templates/music/playlist.html" beforeDir="false" afterPath="$PROJECT_DIR$/music/templates/music/playlist.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/templates/music/song_page.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/music/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/music/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/music/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/css/homepage-style.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/homepage-style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/homepage.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/homepage.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/layout.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/layout_users.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/layout_users.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/media/Music Vibes.otf" beforeDir="false" afterPath="$PROJECT_DIR$/templates/media/fonts/Music Vibes.otf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/media/Musicals.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/templates/media/fonts/Musicals.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/media/books_pile.png" beforeDir="false" afterPath="$PROJECT_DIR$/templates/media/images/books_pile.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/media/headphones-2-48.png" beforeDir="false" afterPath="$PROJECT_DIR$/templates/media/images/headphones-2-48.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/media/home.png" beforeDir="false" afterPath="$PROJECT_DIR$/templates/media/images/home.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/media/play-32.png" beforeDir="false" afterPath="$PROJECT_DIR$/templates/media/images/play-32.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/media/user_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/templates/media/images/user_icon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/media/fonts/Music Vibes.otf" beforeDir="false" afterPath="$PROJECT_DIR$/media/fonts/Music Vibes.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/media/fonts/Musicals.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/media/fonts/Musicals.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/media/images/books_pile.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/images/books_pile.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/media/images/headphones-2-48.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/images/headphones-2-48.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/media/images/heart-small.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/images/heart-small.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/media/images/home.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/images/home.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/media/images/play-32.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/images/play-32.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/media/images/user_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/images/user_icon.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/users/templates/users/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/users/templates/users/login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/users/templates/users/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/users/templates/users/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,11 +83,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Scuola\PPM\PPM_elaborato_backend" />
       <recent name="E:\Scuola\PPM\PPM_elaborato_backend\templates\media\fonts" />
       <recent name="E:\Scuola\PPM\PPM_elaborato_backend\templates\media\images" />
       <recent name="E:\Scuola\PPM\PPM_elaborato_backend\templates" />
       <recent name="E:\Scuola\PPM\PPM_elaborato_backend\users\templates\users" />
-      <recent name="E:\Scuola\PPM\PPM_elaborato_backend\templates\media" />
     </key>
   </component>
   <component name="RunManager">
@@ -124,8 +120,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-PY-241.15989.155" />
-        <option value="bundled-python-sdk-babbdf50b680-7c6932dee5e4-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.15989.155" />
+        <option value="bundled-python-sdk-09665e90c3a7-b11f5e8da5ad-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.15026.15" />
       </set>
     </attachedChunks>
   </component>
@@ -153,6 +148,7 @@
       <workItem from="1717614673825" duration="3791000" />
       <workItem from="1718100822453" duration="2611000" />
       <workItem from="1718108526820" duration="11025000" />
+      <workItem from="1718283566501" duration="10247000" />
     </task>
     <servers />
   </component>
