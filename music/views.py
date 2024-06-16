@@ -21,7 +21,7 @@ def playlist(request):
 
 def song_list(request):
     songs = Song.objects.all()
-    print(songs)
+    print('My songs are', songs)
     return render(request, 'homepage.html', {'songs': songs})
 
 

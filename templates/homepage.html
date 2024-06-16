@@ -10,7 +10,7 @@
     <div id="All-songs" style="padding: 5px">
         <h2>All Songs</h2>
     <ul>
-        <li>this atleast must show</li>
+        <li>this at least must show</li>
         {% for song in songs %}
             <li>{{ song }}</li>
         {% empty %}
@@ -20,7 +20,7 @@
         <div class="main-carousel" data-flickity='{"groupCells":5 , "contain": true, "pageDots": false, "draggable": false, "cellAlign": "left", "lazyLoad": true}'>
             {% if songs %}
                 <p>Found {{ songs|length }} songs.</p>
-            {% else %}     
+            {% else %}
                 <p>No songs found.</p>
             {% endif %}
             {% for i in songs %}
