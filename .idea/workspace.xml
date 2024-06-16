@@ -5,27 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="40d238bf-badb-4aa1-aa10-39dde40a3919" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/music/templates/music/example.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PPM_elaborato_backend/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/PPM_elaborato_backend/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PPM_elaborato_backend/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/PPM_elaborato_backend/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/music/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/music/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/music/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/migrations/0002_song_album_song_upload.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/migrations/0003_rename_upload_song_upload_image_song_upload_song.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/migrations/0004_alter_song_upload_image_alter_song_upload_song.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/migrations/0005_alter_song_upload_image_alter_song_upload_song.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/migrations/0006_alter_song_upload_image.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/migrations/0007_alter_song_upload_image_alter_song_upload_song.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/migrations/0008_alter_song_options_remove_song_id_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/migrations/0009_alter_song_song_id.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/migrations/0010_alter_song_song_alter_song_song_id.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/migrations/0011_alter_song_song_id.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/migrations/0012_alter_likedsong_liked_id_alter_likedsong_music_id_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/migrations/0013_alter_likedsong_liked_id_alter_playlist_playlist_id_and_more.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/music/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/music/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/music/templates/music/playlist.html" beforeDir="false" afterPath="$PROJECT_DIR$/music/templates/music/playlist.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/music/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/music/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/music/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/homepage-style.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/homepage-style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/homepage-style.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/homepage.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/homepage.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/layout.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/layout_users.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/layout_users.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/media/fonts/Music Vibes.otf" beforeDir="false" afterPath="$PROJECT_DIR$/media/fonts/Music Vibes.otf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/media/fonts/Musicals.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/media/fonts/Musicals.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/media/images/books_pile.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/images/books_pile.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/media/images/headphones-2-48.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/images/headphones-2-48.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/media/images/heart-small.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/images/heart-small.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/media/images/home.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/images/home.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/media/images/play-32.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/images/play-32.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/media/images/user_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/images/user_icon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/templates/users/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/users/templates/users/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/templates/users/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/users/templates/users/register.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,8 +46,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="CSS File" />
-        <option value="HTML File" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -61,26 +68,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;Django Server.PPM_elaborato_backend.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.pycharm.django.structure.promotion.once.per.project&quot;: &quot;true&quot;,
-    &quot;django.template.preview.state&quot;: &quot;SHOW_EDITOR_AND_PREVIEW&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/monet/Documents/GitHub/PPM_Elaborato_backend&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Django Server.PPM_elaborato_backend.executor": "Run",
+    "Python.views.executor": "Run",
+    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.pycharm.django.structure.promotion.once.per.project": "true",
+    "django.template.preview.state": "SHOW_EDITOR_AND_PREVIEW",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/monet/Documents/GitHub/PPM_Elaborato_backend",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Scuola\PPM\PPM_elaborato_backend" />
@@ -90,7 +98,30 @@
       <recent name="E:\Scuola\PPM\PPM_elaborato_backend\users\templates\users" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.views">
+    <configuration name="views" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PPM_elaborato_backend" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/music" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/music/views.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="PPM_elaborato_backend" type="Python.DjangoServer" factoryName="Django server">
       <module name="PPM_elaborato_backend" />
       <option name="ENV_FILES" value="" />
@@ -116,12 +147,16 @@
       <option name="customRunCommand" value="" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.views" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-PY-241.17890.14" />
-        <option value="bundled-python-sdk-5b207ade9991-7e9c3bbb6e34-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.17890.14" />
+        <option value="bundled-python-sdk-09665e90c3a7-b11f5e8da5ad-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.15026.15" />
       </set>
     </attachedChunks>
   </component>
@@ -151,10 +186,17 @@
       <workItem from="1718108526820" duration="11025000" />
       <workItem from="1718283566501" duration="10247000" />
       <workItem from="1718354819835" duration="15924000" />
+      <workItem from="1718391991388" duration="4860000" />
+      <workItem from="1718397528337" duration="997000" />
+      <workItem from="1718443956279" duration="14989000" />
+      <workItem from="1718532549257" duration="14912000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/PPM_elaborato_backend$views.coverage" NAME="views Coverage Results" MODIFIED="1718542778647" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/music" />
   </component>
 </project>

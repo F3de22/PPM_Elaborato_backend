@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+{% block main-content %}
+    <li>this atleast must show</li>
+        {% for song in songs %}
+            <li>{{ song }}</li>
+        {% empty %}
+            <li>Oops! I have nothing in the database :(</li>
+        {% endfor %}
+    {% for i in songs %}
+        <div class="carousel-cell">
+            <section class="main_song">
+                <div class="song-card">
+                    <div class="containera">
+                        <img src="{{i.image}}" id="A_{{i.id}}" alt="song cover">
+                        <div class="overlaya"></div>
+                        <div>
+                            <a class="play-btn" href="{{i.preview_url}}" id="{{i.id}}"><i class="fas fa-play-circle"></i></a>
+                            {% if user.is_authenticated %}
+                                <div class="add-playlist-btn">
+                                    <a id="W_{{i.song_id}}" title="Add to Playlist" onclick="showDiv(this)"></a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <p class="songName" id="B_{{i.id}}">{{i.name}}</p>
+                </div>
+                <p class="artistName">{{i.singer1}}</p>
+            </section>
+        </div>
+    {% endfor %}
+{% endblock %}

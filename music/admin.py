@@ -4,8 +4,8 @@ from .models import Song, Playlist, LikedSong
 
 
 class MusicAdmin(admin.ModelAdmin):
-    list_display = ["name", "artist", "album"]
-    search_fields = ["name", "artist", "album"]
+    list_display = ["name", "artist"]
+    search_fields = ["name", "artist"]
     prepopulated_fields = {"slug": ("name",)}
 
 

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Song, LikedSong, Playlist
+from .models import Song, Playlist, LikedSong
 from django.contrib import messages
 from django.db.models import Case, When
 import json
@@ -10,13 +10,22 @@ import os
 
 # Create your views here.
 
+def example(request):
+    return render(request, 'music/example.html')
+
 
 def playlist(request):
     play_list = Song.objects.all()
     return render(request, 'music/playlist.html', {'playlist': play_list})
 
 
-def createPlaylist(request):
+def song_list(request):
+    songs = Song.objects.all()
+    print(songs)
+    return render(request, 'homepage.html', {'songs': songs})
+
+
+def create_playlist(request):
     try:
         user = request.user
         if(user.is_authenticated):
@@ -30,7 +39,14 @@ def createPlaylist(request):
         return redirect("/")
 
 
-def searchResults(request):
+def all_songs(request):
+    allsongs = Song.objects.all()
+    #random.shuffle(allsongs)
+    print(allsongs)
+    return render(request, 'music/example.html', {'allsongs': allsongs})
+
+
+def search_results(request):
     user = request.user
     myPlaylists = []
     if user.is_authenticated:
@@ -38,7 +54,6 @@ def searchResults(request):
         myPlaylists = list(Playlist.objects.filter(user=user))
     if request.method == "POST":
         data = request.POST["data"]
-        # print(data)
         allSongs = Song.objects.all()
         songsFound = allSongs.filter(name__icontains=data)
         moviesFound = allSongs.filter(movie__icontains=data)
@@ -53,7 +68,6 @@ def searchResults(request):
 def myPlaylist(request, id):
     user = request.user
     if user.is_authenticated:
-        # Extracting Playlists of the Authenticated User
         myPlaylists = list(Playlist.objects.filter(user=user))
     if user.is_authenticated:
         if request.method == "POST":

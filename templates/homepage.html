@@ -7,6 +7,49 @@
 
 
 {% block main-content %}
+    <div id="All-songs" style="padding: 5px">
+        <h2>All Songs</h2>
+    <ul>
+        <li>this atleast must show</li>
+        {% for song in songs %}
+            <li>{{ song }}</li>
+        {% empty %}
+            <li>Oops! I have nothing in the database :(</li>
+        {% endfor %}
+    </ul>
+        <div class="main-carousel" data-flickity='{"groupCells":5 , "contain": true, "pageDots": false, "draggable": false, "cellAlign": "left", "lazyLoad": true}'>
+            {% if songs %}
+                <p>Found {{ songs|length }} songs.</p>
+            {% else %}     
+                <p>No songs found.</p>
+            {% endif %}
+            {% for i in songs %}
+                <div class="carousel-cell">
+                    <section class="main_song">
+                        <div class="song-card">
+                            <div class="containera">
+                                <img src="{{i.image}}" id="A_{{i.id}}" alt="song cover">
+                                <div class="overlaya"></div>
+                                <div>
+                                    <a class="play-btn" href="{{i.preview_url}}" id="{{i.id}}"><i class="fas fa-play-circle"></i></a>
+                                    {% if user.is_authenticated %}
+                                        <div class="add-playlist-btn">
+                                            <a id="W_{{i.song_id}}" title="Add to Playlist" onclick="showDiv(this)"></a>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="songName" id="B_{{i.id}}">{{i.name}}</p>
+                        </div>
+                        <p class="artistName">{{i.singer1}}</p>
+                    </section>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    
     <div id="Recommends" style="padding: 5px">
         <h2>Recommended</h2>
         <div class="main-carousel" data-flickity='{"groupCells":5 , "contain": true, "pageDots": false, "draggable": false, "cellAlign": "left", "lazyLoad": true}'>
@@ -17,7 +60,7 @@
                             <img src="{{i.album.images.0.url}}" id="A_{{i.id}}" alt="song cover">
                             <div class="overlaya"></div>
                             <div>
-                                <a class="play-btn-spotify-songs" href="{{i.preview_url}}" id="{{i.id}}"><i> class="fas fa-play-circle"></i></a>
+                                <a class="play-btn-spotify-songs" href="{{i.preview_url}}" id="{{i.id}}"><i class="fas fa-play-circle"></i></a>
                             </div>
                         </div>
                         <div>
@@ -56,7 +99,7 @@
         <p style="margin: 5px; font-size: 0.8rem; font-weight: 700; color: rgb(138, 138, 138); text-align: left;">
             You don't have any Playlist.</p>
         <a class="glow-on-hover"
-            onclick="$('#divId').css({display: 'none'}), document.getElementById('modal-wrapper-playlist').style.display='block'"><i class="fas fa-plus"></i> Create Playlist</a>
+            onclick="$('#divId').css({display: 'none'}); document.getElementById('modal-wrapper-playlist').style.display='block'"><i class="fas fa-plus"></i> Create Playlist</a>
         {% endif %}
     </div>
 
@@ -80,46 +123,46 @@
 
 
 
-<script>
-    var song_id_for_playlist;
-    function showDiv(el) {
-        // alert(el.id + " is Clicked!");
-        var div = $("#divId");
-        song_id_for_playlist = el.id;
-        div.css({
-            top: event.pageY,
-            left: event.pageX,
-            position: "absolute",
-            display: "block"
-        });
-
-    }
-    $(document).mouseup(function (e) {
-
-        var container = $("#divId");
-
-        if (!container.is(e.target) && container.has(e.target).length === 0) {
-
-            container.fadeOut();
-
+    <script>
+        var song_id_for_playlist;
+        function showDiv(el) {
+            // alert(el.id + " is Clicked!");
+            var div = $("#divId");
+            song_id_for_playlist = el.id;
+            div.css({
+                top: event.pageY,
+                left: event.pageX,
+                position: "absolute",
+                display: "block"
+            });
+    
         }
-    });
-
-    function sendPostRequestPlaylistSong(el) {
-        // alert("Song ID: "+song_id_for_playlist+" | Playlist ID: "+el.id);
-        var data = song_id_for_playlist + "|" + el.id;
-        $.ajax({
-            "url": "addSongToPlaylist",
-            "type": "post",
-            "data": { 'data': data, 'csrfmiddlewaretoken': '{{ csrf_token }}' },
-            "success": showAlert('success', "Song Added In Your Playlist"),
-            // "error": error_callback
-        })
-        var div = $("#divId");
-        div.css({
-            transition: "0.3s",
-            display: "none"
+        $(document).mouseup(function (e) {
+    
+            var container = $("#divId");
+    
+            if (!container.is(e.target) && container.has(e.target).length === 0) {
+    
+                container.fadeOut();
+    
+            }
         });
-    }
-</script>
+    
+        function sendPostRequestPlaylistSong(el) {
+            // alert("Song ID: "+song_id_for_playlist+" | Playlist ID: "+el.id);
+            var data = song_id_for_playlist + "|" + el.id;
+            $.ajax({
+                "url": "addSongToPlaylist",
+                "type": "post",
+                "data": { 'data': data, 'csrfmiddlewaretoken': '{{ csrf_token }}' },
+                "success": showAlert('success', "Song Added In Your Playlist"),
+                // "error": error_callback
+            })
+            var div = $("#divId");
+            div.css({
+                transition: "0.3s",
+                display: "none"
+            });
+        }
+    </script>
 {% endblock %}
