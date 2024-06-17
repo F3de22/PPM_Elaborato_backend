@@ -11,8 +11,8 @@ class Song(models.Model):
     artist = models.CharField(max_length=50)
     album = models.CharField(max_length=50, blank=True)
     genre = models.CharField(max_length=20, blank=True, default='Album')
-    song = models.FileField(upload_to="media/songs/", validators=[FileExtensionValidator(allowed_extensions=['mp3', 'wav'])], default="name")
-    image = models.ImageField(upload_to="media/songimage/", validators=[FileExtensionValidator(allowed_extensions=['jpeg', 'jpg', 'png'])], default="https://placehold.co/300x300/png")
+    song = models.FileField(upload_to="songs/", validators=[FileExtensionValidator(allowed_extensions=['mp3', 'wav'])], default="name")
+    image = models.ImageField(upload_to="songimage/", validators=[FileExtensionValidator(allowed_extensions=['jpeg', 'jpg', 'png'])], default="https://placehold.co/300x300/png")
     data = models.DateTimeField(auto_now=False, auto_now_add=True)
     slug = models.SlugField(unique=True)
 
@@ -27,7 +27,7 @@ class Playlist(models.Model):
     playlist_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50, default="name")
-    image = models.ImageField(upload_to="media/images/", validators=[FileExtensionValidator(allowed_extensions=['jpeg', 'jpg', 'png'])])
+    image = models.ImageField(upload_to="playlist_images/", validators=[FileExtensionValidator(allowed_extensions=['jpeg', 'jpg', 'png'])], default="media/images/music-placeholder.png")
     plays = models.IntegerField(default=0)
     slug = models.SlugField(unique=True)
 

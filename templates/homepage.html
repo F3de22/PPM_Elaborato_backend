@@ -8,21 +8,13 @@
 
 {% block main-content %}
     <div id="All-songs" style="padding: 5px">
-        <h2>All Songs</h2>
-    <ul>
-        <li>this at least must show</li>
-        {% for song in songs %}
-            <li>{{ song }}</li>
-        {% empty %}
-            <li>Oops! I have nothing in the database :(</li>
-        {% endfor %}
-    </ul>
+        <h2 id>All Songs</h2>
+        {% if songs %}
+            <p>There are {{ songs|length }} songs:</p>
+        {% else %}
+            <p>No songs found.</p>
+        {% endif %}
         <div class="main-carousel" data-flickity='{"groupCells":5 , "contain": true, "pageDots": false, "draggable": false, "cellAlign": "left", "lazyLoad": true}'>
-            {% if songs %}
-                <p>Found {{ songs|length }} songs.</p>
-            {% else %}
-                <p>No songs found.</p>
-            {% endif %}
             {% for i in songs %}
                 <div class="carousel-cell">
                     <section class="main_song">
@@ -31,10 +23,10 @@
                                 <img src="{{i.image}}" id="A_{{i.id}}" alt="song cover">
                                 <div class="overlaya"></div>
                                 <div>
-                                    <a class="play-btn" href="{{i.preview_url}}" id="{{i.id}}"><i class="fas fa-play-circle"></i></a>
+                                    <a class="play-btn" href="{{i.preview_url}}" id="{{i.id}}"><i class="fas fa-play-circle fa-2x"></i></a>
                                     {% if user.is_authenticated %}
                                         <div class="add-playlist-btn">
-                                            <a id="W_{{i.song_id}}" title="Add to Playlist" onclick="showDiv(this)"></a>
+                                            <a id="W_{{i.song_id}}" title="Add to Playlist" onclick="showDiv(this)"><i class="fas fa-ellipsis-h"></i></a>
                                         </div>
                                     {% endif %}
                                 </div>
@@ -42,8 +34,8 @@
                         </div>
                         <div>
                             <p class="songName" id="B_{{i.id}}">{{i.name}}</p>
+                            <p class="artistName">{{i.artist}}</p>
                         </div>
-                        <p class="artistName">{{i.singer1}}</p>
                     </section>
                 </div>
             {% endfor %}
@@ -60,7 +52,7 @@
                             <img src="{{i.album.images.0.url}}" id="A_{{i.id}}" alt="song cover">
                             <div class="overlaya"></div>
                             <div>
-                                <a class="play-btn-spotify-songs" href="{{i.preview_url}}" id="{{i.id}}"><i class="fas fa-play-circle"></i></a>
+                                <a class="play-btn-spotify-songs" data-song-url="{{i.song.path}}" id="{{i.id}}" onclick="playSong(this)"><i class="fas fa-play-circle"></i></a>
                             </div>
                         </div>
                         <div>
@@ -98,8 +90,7 @@
         {% else %}
         <p style="margin: 5px; font-size: 0.8rem; font-weight: 700; color: rgb(138, 138, 138); text-align: left;">
             You don't have any Playlist.</p>
-        <a class="glow-on-hover"
-            onclick="$('#divId').css({display: 'none'}); document.getElementById('modal-wrapper-playlist').style.display='block'"><i class="fas fa-plus"></i> Create Playlist</a>
+        <a class="create-p" onclick="$('#divId').css({display: 'none'}); document.getElementById('modal-wrapper-playlist').style.display='block'"><i class="fas fa-plus"></i> Create Playlist</a>
         {% endif %}
     </div>
 
@@ -116,7 +107,7 @@
         </div>
         <div style="margin: auto 0">
             <audio preload="auto" controls id="audioPlayer">
-            <!-- <source type="audio/mp3" /> -->
+            <source src="">
             </audio>
         </div>
     </div>
@@ -124,6 +115,17 @@
 
 
     <script>
+    
+        function playSong(element) {
+            var songUrl = element.getAttribute('data-song-url');
+            var audioPlayer = document.getElementById('audioPlayer');
+            var audioSource = document.getElementById('audioSource');
+            audioSource.src = songUrl;
+            audioPlayer.load();
+            audioPlayer.play();
+        }
+    
+        
         var song_id_for_playlist;
         function showDiv(el) {
             // alert(el.id + " is Clicked!");

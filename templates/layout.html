@@ -16,6 +16,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />  
 </head>
 <body>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
@@ -63,7 +64,7 @@
 
     <main>
     <div id='modal-wrapper-playlist' class='modal'>
-        <form class='modal-content' action='/createPlaylist' method="POST">{% csrf_token %}
+        <form class='modal-content' action='music/create_playlist' method="POST">{% csrf_token %}
             <h2>Create Playlist</h2>
             <div class='container'>
                 <input id="playname-input" type='text' placeholder='Your New Playlist Name' name='playlist_name' required>

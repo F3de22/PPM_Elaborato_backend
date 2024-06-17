@@ -1,9 +1,11 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from music.models import Song
 
 
 def homepage(request):
-    return render(request, 'homepage.html')
+    songs = Song.objects.all()
+    return render(request, 'homepage.html', {'songs': songs})
 
 
 def profile(request):

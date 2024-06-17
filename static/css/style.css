@@ -14,6 +14,7 @@ header{
 
 a{
     text-decoration: none;
+    cursor: pointer;
     color:white;
 }
 
@@ -143,11 +144,10 @@ header form{
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
-    background-color: #0251ff;
+    background-color: #2bc5b4;
     margin: 18% auto 15% auto;
     border: 2px solid darkblue;
     width: 30%;
@@ -160,14 +160,13 @@ header form{
 
 .modal-content #playname-input{
     margin:5px auto 0 auto;
-    width:50%;
+    width:70%;
 }
 
 .modal-content #submitb {
     margin: 5px auto;
     background-color: #03ff03;
 }
-
 
 .close {
     position: absolute;
@@ -184,7 +183,7 @@ header form{
     cursor: pointer;
 }
 
-.play-btn{
+/*.play-btn{
     align-content: center;
     justify-content: center;
     margin:0 auto;
@@ -192,7 +191,7 @@ header form{
     border: 1px solid rgb(130, 131, 131);
     color: rgb(130, 131, 131);
     background: none;
-}
+}*/
 
 /* FINE LAYOUT */
 
@@ -207,69 +206,33 @@ header form{
     margin-top:50px;
 }
 
-.main_song{
-    position: relative;
-    width: 50%;
-    margin-bottom: 100px;
-}
-
-.main_song img{
-    max-width:300px;
-    border-radius: 20px;
-    opacity: 1;
-    display: block;
-    height: auto;
-    transition: .5s ease;
-    backface-visibility: hidden;
-}
-
-.middle {
-    transition: .5s ease;
-    opacity: 0;
-    position: absolute;
-    top: 60%;
-    left: 60%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%)
-}
-
-.main_song:hover .image {
-    opacity: 0.3;
-}
-
-.main_song:hover .middle {
-    opacity: 1;
-}
-
-.middle p{
-    width:fit-content;
-    color: white;
-    font-size: 16px;
-    padding: 16px 32px;
-}
-
 .song-card{
     margin: 0 10px;
-    height: 200px;
+    height: 150px;
     width: 150px;
 }
+
+.main_song{
+    width: 165px;
+}
+
 
 .song-card img{
     border-radius: 3%;
     margin: auto;
-    height: 150px;
+    height: 200px;
     width: 150px;
 }
 
 .containera{
     border-radius: 4%;
     position: relative;
-    margin-top: 50px;
+    margin-top: 10px;
     width: 145px;
     height: 145px;
 }
 
-.overlaya {
+.overlaya{
     position: absolute;
     border-radius: 4%;
     top: 0;
@@ -293,23 +256,21 @@ header form{
     left: 0;
 }
 
-.play-btn {
+.play-btn{
     position: absolute;
     width: 145px;
+    height:80px;
     left: 0;
-    top: 52px;
+    top: 50px;
     text-align: center;
     opacity: 0;
     transition: opacity .35s ease;
 }
-.play-btn a {
-    color: white;
-    font-size: 3rem;
-    z-index: 1;
-}
+
 .containera:hover .play-btn {
     opacity: 1;
 }
+
 .play-btn a:hover {
     transition: 0.2s;
     opacity: 0.6;
@@ -335,45 +296,59 @@ header form{
 }
 .add-playlist-btn a:hover {
     transition: 0.2s;
-    /* color: rgb(224, 224, 224); */
     opacity: 0.6;
-    /* font-size: 3.4rem; */
-    /* transform: scale(1.05); */
 }
-
 
 .songName {
-    font-family: 'Baloo Bhai 2', cursive;
+    font-family: 'Baloo Bhai 2', sans-serif;
+    color:white;
+    width: 150px;
+    font-weight: 700;
+    margin:0 0 0 7px;
     font-size: 0.9rem;
-    line-height: 2;
-    color: rgb(71, 70, 70);
     white-space: nowrap;
-    overflow: hidden;
+    overflow: clip;
+    line-break: anywhere;
     text-overflow: ellipsis;
     text-align: center;
 }
 
-.movieName {
+.artistName {
     font-family: 'Lato', sans-serif;
-    font-size: 0.8rem;
-    line-height: 0.8;
-    color: rgb(139, 138, 138);
+    font-size: 0.7rem;
+    color: white;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     text-align: center;
 }
 
-.center {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
+#divId{
+    display: none;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 20px;
+    padding:15px;
 }
 
-#playlist {
+.create-p{
+    display: inline-block;
+    text-decoration: none;
+    vertical-align: middle;
+    font-family: 'Baloo Bhai 2', cursive;
+    font-size: .93333rem;
+    line-height: 1.4;
+    padding: 10px 15px 10px 15px;
+    border: 1px solid #2bc5b4;
+    outline: none;
+    color: #2bc5b4;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 21px;
+}
+
+/*playlist{
     list-style: none;
 }
 
@@ -390,7 +365,7 @@ header form{
 
 #playlist .current-song a {
     color: #2bc5b4;
-}
+} */
 
 #likeButton {
     margin: 10px 10px 10px 30px;
@@ -405,6 +380,9 @@ header form{
     outline: none;
     transition: 0.4s;
 }
+
+
+/* player */
 
 .audio-decs {
     display: grid;
@@ -553,7 +531,7 @@ header form{
 }
 
 .card {
-    padding: 30px 0px;
+    padding: 30px 0;
     display: grid;
     grid-template-columns: 25% 75%;
 }
@@ -565,7 +543,7 @@ header form{
 .card img{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 4%;
-    margin: 0px auto;
+    margin: 0 auto;
     height: 240px;
     width: 85%;
 }
@@ -583,7 +561,7 @@ header form{
     text-align: center;
     font-family: 'Baloo Bhai 2', cursive;
     padding: 9px 31px;
-    margin: 20px 0px;
+    margin: 20px 0;
     font-size: 1rem;
     outline: none;
     color: white;
@@ -650,7 +628,7 @@ header form{
 .container_songpost {
     border-radius: 4%;
     position: relative;
-    margin: 1px 0px 1px 45px;
+    margin: 1px 0 1px 45px;
     width: 75%;
     height: 50px;
 }
@@ -733,24 +711,13 @@ header form{
     opacity: 1;
 }
 
-.songName {
-    font-family: 'Baloo Bhai 2', cursive;
-    font-size: 0.9rem;
-    line-height: 2;
-    color: rgb(71, 70, 70);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-align: center;
-}
-
 #delete-btn {
     text-decoration: none;
     text-align: center;
     font-family: 'Baloo Bhai 2', cursive;
     border: none;
     padding: 6px 25px;
-    margin: 30px 0px 0px 0px;
+    margin-top: 30px;
     font-size: 0.9rem;
     outline: none;
     color: white;

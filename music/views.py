@@ -4,15 +4,10 @@ from .models import Song, Playlist, LikedSong
 from django.contrib import messages
 from django.db.models import Case, When
 import json
-import random
 import os
 
 
 # Create your views here.
-
-def example(request):
-    return render(request, 'music/example.html')
-
 
 def playlist(request):
     play_list = Song.objects.all()
@@ -26,24 +21,21 @@ def song_list(request):
 
 
 def create_playlist(request):
-    try:
-        user = request.user
-        if(user.is_authenticated):
-            playlist_name = request.POST["playlist_name"]
-            newPlaylist = Playlist(user=user, music_ids=[], playlist_name=playlist_name)
-            newPlaylist.save()
-            return redirect("/")
-        else:
-            return redirect("/")
-    except:
+    user = request.user
+    if(user.is_authenticated):
+        playlist_name = request.POST["playlist_name"]
+        newplaylist = Playlist(user=user, music_ids=[], playlist_name=playlist_name)
+        newplaylist.save()
         return redirect("/")
+    else:
+        return redirect("users:login")
+
 
 
 def all_songs(request):
     allsongs = Song.objects.all()
-    #random.shuffle(allsongs)
     print(allsongs)
-    return render(request, 'music/example.html', {'allsongs': allsongs})
+    return render(request, 'music/allsongs.html', {'allsongs': allsongs})
 
 
 def search_results(request):
@@ -65,11 +57,10 @@ def search_results(request):
         return redirect("/")
 
 
-def myPlaylist(request, id):
+def playlist(request, id):
     user = request.user
     if user.is_authenticated:
         myPlaylists = list(Playlist.objects.filter(user=user))
-    if user.is_authenticated:
         if request.method == "POST":
             song_id = request.POST["music_id"]
             playlist = Playlist.objects.filter(playlist_id=id).first()
@@ -81,26 +72,20 @@ def myPlaylist(request, id):
             print(message)
             return HttpResponse(json.dumps({'message': message}))
         else:
-            images = os.listdir("music_app/static/PlaylistImages")
+            images = os.listdir("media/playlist_images")
             print(images)
-            randomImagePath = random.choice(images)
-            randomImagePath = "PlaylistImages/" + randomImagePath
-            print(randomImagePath)
             currPlaylist = Playlist.objects.filter(playlist_id=id).first()
             music_ids = currPlaylist.music_ids
             playlistSongs = []
             recommendedSingers = []
             for music_id in music_ids:
                 song = Song.objects.filter(song_id=music_id).first()
-                random.shuffle(recommendedSingers)
-                recommendedSingers = list(set(recommendedSingers))[:6]
                 playlistSongs.append(song)
 
-            return render(request, "myPlaylist.html", {'playlistInfo': currPlaylist,
+            return render(request, "music/playlist.html", {'playlistInfo': currPlaylist,
                                                            'playlistSongs': playlistSongs,
                                                            'myPlaylists': myPlaylists,
-                                                           'recommendedSingers': recommendedSingers,
-                                                           'randomImagePath': randomImagePath})
+                                                           'recommendedSingers': recommendedSingers})
 
 
 def deletePlaylist(request):
