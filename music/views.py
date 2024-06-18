@@ -84,7 +84,6 @@ def playlist(request, id):
             for music_id in music_ids:
                 song = Song.objects.filter(song_id=music_id).first()
                 playlistSongs.append(song)
-
             return render(request, "music/playlist.html", {'playlistInfo': currPlaylist,
                                                            'playlistSongs': playlistSongs,
                                                            'myPlaylists': myPlaylists,

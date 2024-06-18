@@ -20,11 +20,10 @@
                     <section class="main_song">
                         <div class="song-card">
                             <div class="containera">
-                                <img src="{{i.image}}" id="A_{{i.id}}" alt="song cover">
-                                <img src="{{i.image}}" id="A_{{i.id}}" alt="song cover">
+                                <img src="{{i.image}}" id="A_{{i.song_id}}" alt="song cover">
                                 <div class="overlaya"></div>
                                 <div>
-                                    <a class="play-btn" data-song-url="{{i.song.url}}" id="{{i.id}}" onclick="playSong(this)"><i class="fas fa-play-circle fa-2x"></i></a>
+                                    <a class="play-btn" data-song-url="{{i.song.url}}" id="{{i.song_id}}" onclick="playSong(this)"><i class="fas fa-play-circle fa-2x"></i></a>
                                     {% if user.is_authenticated %}
                                         <div class="add-playlist-btn">
                                             <a id="W_{{i.song_id}}" title="Add to Playlist" onclick="showDiv(this)"><i class="fas fa-ellipsis-h"></i></a>
@@ -34,8 +33,8 @@
                             </div>
                         </div>
                         <div>
-                            <p class="songName" id="B_{{i.id}}">{{i.name}}</p>
-                            <p class="artistName">{{i.artist}}</p>
+                            <p class="songName" id="B_{{i.song_id}}">{{i.name}}</p>
+                            <p class="artistName" id="C_{{i.song_id}}">{{i.artist}}</p>
                         </div>
                     </section>
                 </div>
@@ -103,7 +102,7 @@
             </div>
             <div id="text-song">
                 <h4 id="audio-song">Song Name</h4>
-                <p id="audio-movie">Artist Name</p>
+                <p id="audio-artist">Artist Name</p>
             </div>
         </div>
         <div style="margin: auto 0">
@@ -117,14 +116,24 @@
 
     <script>
     
-        function playSong(element) {
+        function playSong(element){
             var songUrl = element.getAttribute('data-song-url');
-            console.log(songUrl)
             var audioPlayer = document.getElementById('audioPlayer');
             var audioSource = document.getElementById('audioSource');
             audioSource.src = songUrl;
             audioPlayer.load();
             audioPlayer.play();
+            var songId = element.id;
+            var newImage = document.getElementById("A_" + songId).src;
+            var newSongName = document.getElementById("B_" + songId).textContent;
+            var newArtistName = document.getElementById("C_" + songId).textContent;
+            console.log(newSongName)
+            console.log(newImage)
+            console.log(newArtistName)
+            
+            document.getElementById("audio-img").src = newImage;
+            document.getElementById("audio-song").textContent = newSongName;
+            document.getElementById("audio-artist").textContent = newArtistName;
         }
     
         
