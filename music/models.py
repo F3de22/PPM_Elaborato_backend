@@ -14,7 +14,7 @@ class Song(models.Model):
     song = models.FileField(upload_to="songs/", validators=[FileExtensionValidator(allowed_extensions=['mp3', 'wav'])], default="name")
     image = models.ImageField(upload_to="songimage/", validators=[FileExtensionValidator(allowed_extensions=['jpeg', 'jpg', 'png'])], default="https://placehold.co/300x300/png")
     data = models.DateTimeField(auto_now=False, auto_now_add=True)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField()
 
     def __str__(self):
         return self.name
@@ -26,10 +26,10 @@ class Song(models.Model):
 class Playlist(models.Model):
     playlist_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=50, default="name")
+    playlist_name = models.CharField(max_length=50, default="name")
     image = models.ImageField(upload_to="playlist_images/", validators=[FileExtensionValidator(allowed_extensions=['jpeg', 'jpg', 'png'])], default="media/images/music-placeholder.png")
     plays = models.IntegerField(default=0)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField()
 
     def __str__(self):
         return self.user.first_name

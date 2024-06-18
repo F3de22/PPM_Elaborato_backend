@@ -20,13 +20,16 @@ def song_list(request):
     return render(request, 'homepage.html', {'songs': songs})
 
 
-def create_playlist(request):
+def createPlaylist(request):
     user = request.user
     if(user.is_authenticated):
         playlist_name = request.POST["playlist_name"]
-        newplaylist = Playlist(user=user, music_ids=[], playlist_name=playlist_name)
+        print(f"User: {user}")
+        print(f"Playlist Name: {playlist_name}")
+        newplaylist = Playlist(user=user, playlist_name=playlist_name)
         newplaylist.save()
-        return redirect("/")
+        print(f"New Playlist Created: {newplaylist.playlist_id}")
+        return redirect("music:playlist")
     else:
         return redirect("users:login")
 

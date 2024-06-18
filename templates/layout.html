@@ -64,7 +64,7 @@
 
     <main>
     <div id='modal-wrapper-playlist' class='modal'>
-        <form class='modal-content' action='music/create_playlist' method="POST">{% csrf_token %}
+        <form class='modal-content' action='music/createPlaylist' method="POST">{% csrf_token %}
             <h2>Create Playlist</h2>
             <div class='container'>
                 <input id="playname-input" type='text' placeholder='Your New Playlist Name' name='playlist_name' required>
