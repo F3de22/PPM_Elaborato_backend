@@ -5,7 +5,7 @@ app_name = 'music'
 
 urlpatterns = [
     path('playlist/', views.playlist, name="playlist"),
-    path('playlist/', views.createPlaylist, name='createPlaylist'),
+    path('createPlaylist', views.createPlaylist, name='createPlaylist'),
     path('', views.search_results, name="searchResults"),
     path('allsongs/', views.all_songs, name="allsongs"),
     path('', views.deletePlaylist, name="deletePlaylist"),
