@@ -1,0 +1,13 @@
+{
+    "builds": [{
+        "src": "PPM_elaborato_backend/wsgi.py",
+        "use": "@vercel/python",
+        "config": { "maxLambdaSize": "15mb", "runtime": "python3.12" }
+    }],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "PPM_elaborato_backend/wsgi.py"
+        }
+    ]
+}
