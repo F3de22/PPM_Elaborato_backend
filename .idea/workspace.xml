@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="40d238bf-badb-4aa1-aa10-39dde40a3919" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vercel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PPM_elaborato_backend/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/PPM_elaborato_backend/settings.py" afterDir="false" />
-    </list>
+    <list default="true" id="40d238bf-badb-4aa1-aa10-39dde40a3919" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -169,7 +164,7 @@
       <workItem from="1718611997850" duration="23649000" />
       <workItem from="1718698149645" duration="10325000" />
       <workItem from="1718710877088" duration="15855000" />
-      <workItem from="1718734811525" duration="5663000" />
+      <workItem from="1718734811525" duration="6208000" />
     </task>
     <servers />
   </component>
