@@ -7,15 +7,15 @@ import json
 import os
 
 
-def playlist(request, id):
+def playlist(request, playlist_id):
     user = request.user
     if user.is_authenticated:
-        myPlaylists = list(Playlist.objects.filter(user=user))
+        myPlaylists = Playlist.objects.filter(user=user)
         if request.method == "POST":
             song_id = request.POST["music_id"]
-            playlist = Playlist.objects.filter(playlist_id=id).first()
-            if song_id in playlist.music_ids:
-                playlist.music_ids.remove(song_id)
+            playlist = Playlist.objects.filter(playlist_id=playlist_id).first()
+            if song_id in playlist.songs.all():
+                playlist.songs.remove(song_id)
                 playlist.plays -= 1
                 playlist.save()
             message = "Successfull"
@@ -24,13 +24,11 @@ def playlist(request, id):
         else:
             images = os.listdir("media/playlist_images")
             print(images)
-            currPlaylist = Playlist.objects.filter(playlist_id=id).first()
-            music_ids = currPlaylist.music_ids
-            playlistSongs = []
+            currPlaylist = Playlist.objects.filter(playlist_id=playlist_id).first()
+            songs = currPlaylist.songs
+            playlistSongs = [currPlaylist.songs.all()]
             recommendedSingers = []
-            for music_id in music_ids:
-                song = Song.objects.filter(song_id=music_id).first()
-                playlistSongs.append(song)
+
             return render(request, "music/playlist.html", {'playlistInfo': currPlaylist,
                                                            'playlistSongs': playlistSongs,
                                                            'myPlaylists': myPlaylists,
@@ -46,7 +44,7 @@ def createPlaylist(request):
         newplaylist = Playlist(user=user, playlist_name=playlist_name)
         newplaylist.save()
         print(f"New Playlist Created: {newplaylist.playlist_id}")
-        return redirect("music:playlist")
+        return redirect("music:playlist", playlist_id=newplaylist.playlist_id)
     else:
         return redirect("users:login")
 
@@ -89,21 +87,18 @@ def deletePlaylist(request):
 def addSongToPlaylist(request):
     user = request.user
     if user.is_authenticated:
-        try:
-            data = request.POST['data']
-            ids = data.split("|")
-            song_id = ids[0][2:]
-            playlist_id = ids[1][2:]
-            print(ids[0][2:], ids[1][2:])
-            currPlaylist = Playlist.objects.filter(playlist_id=playlist_id).first()
-            if song_id not in currPlaylist.music_ids:
-                currPlaylist.music_ids.append(song_id)
-                currPlaylist.plays = len(currPlaylist.music_ids)
-                currPlaylist.save()
-            return HttpResponse("Successfull")
-        except:
-            return redirect("/")
-        # return redirect("/")
+        data = request.POST['data']
+        ids = data.split("|")
+        song_id = ids[0][2:]
+        playlist_id = ids[1][2:]
+        print(ids[0][2:], ids[1][2:])
+        currPlaylist = Playlist.objects.filter(playlist_id=playlist_id).first()
+        song = Song.objects.filter(song_id=song_id).first()
+        if song not in currPlaylist.songs.all():
+            currPlaylist.songs.add(song)
+            currPlaylist.plays = currPlaylist.songs.count()
+            currPlaylist.save()
+        return HttpResponse("Successfull")
     else:
         return redirect("/")
 

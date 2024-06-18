@@ -2,59 +2,50 @@
 
 
 {% block title %}
-    {{ playlistInfo.name }}
+    {{ playlistInfo.playlist_name }}
 {% endblock %}
 
 
 {% block main-content %}
-    <div class="playlist_header">
-        <img src="../../../media/images/heart-small.png" alt="liked songs image">
-    </div>
-
     <div id="body-center">
         <div class="card">
             <img src="/media/images/music-placeholder.png" alt="No Image Found">
             <div class="cardData">
-                <h1 id="B_{{playlistInfo.playlist_id}}">{{playlistInfo.name}}</h1>
+                <h1 id="B_{{playlistInfo.playlist_id}}">{{playlistInfo.playlist_name}}</h1>
                 <p>{{playlistInfo.plays}} Songs</p>
                 <br>
                 <a href="/allSongs" id="add_song_btn"><i class="fas fa-plus"></i>
                     Add Song</a>
             </div>
         </div>
-
-        {% if playlistSongs %}
-        <h2 id="your-song">
-            Your Songs:</h2>
-        <div id="playlist">
-            {% for i in playlistSongs %}
-            <div class="sameMovieCard" id="Div_{{i.song_id}}">
-                <div class="container_songpost">
-                    <img src="{{i.image.url}}" id="A_{{i.song_id}}" />
-                    <div class="overlay_songpost"></div>
-                    <div class="play-btn_songpost">
-                        <li><a href="{{i.song.url}}" id="{{i.song_id}}"><i class="far fa-play-circle fa-2x"></i></a>
-                        </li>
+        <h2 id="your-song">Your Songs:</h2>
+        {% if songs %}
+            <div id="playlist">
+                {% for i in songs %}
+                    <div class="sameMovieCard" id="Div_{{i.song_id}}">
+                        <div class="container_songpost">
+                            <img src="{{i.image.url}}" id="A_{{i.song_id}}" />
+                            <div class="overlay_songpost"></div>
+                            <div class="play-btn_songpost">
+                                <li><a href="{{i.song.url}}" id="{{i.song_id}}"><i class="far fa-play-circle fa-2x"></i></a></li>
+                            </div>
+                        </div>
+                        <div class="songpost_data">
+                            <h5 class="song-name" id="B_{{i.song_id}}">{{i.name}}</h5>
+                            <p class="singer-name">{{i.singer}}</p>
+                            <p class="movie-name" id="C_{{i.song_id}}">
+                                {{i.artist}}</p>
+                            <p class="remove-song-from-playlist-btn" id="F_{{i.song_id}}" onclick="removeSongFromPlaylist(this)" title="Remove from Playlist"><i class="far fa-times-circle"></i></p>
+                        </div>
                     </div>
-                </div>
-                <div class="songpost_data">
-                    <h5 class="song-name" id="B_{{i.song_id}}">
-                        {{i.name}}</h5>
-                    <p class="singer-name">{{i.singer1}}</p>
-                    <p class="movie-name" id="C_{{i.song_id}}">
-                        {{i.artist}}</p>
-                    <p class="remove-song-from-playlist-btn" id="F_{{i.song_id}}" onclick="removeSongFromPlaylist(this)" title="Remove from Playlist"><i class="far fa-times-circle"></i></p>
-                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-
-        </div>
         {% else %}
-        <h2 class="no-songs">Currently No Songs Added in Your Playlist</h2>
+            <h2 id="no-song">Currently No Songs Added in Your "{{ playlistInfo.playlist_name }}"</h2>
         {% endif %}
 
 
-        <h2 id="reccommended-tit">Recommended Artists</h2>
+        <h3 id="recommended-tit">Recommended Artists</h3>
 
         {% if recommendedSingers %}
         <div class="main-carousel" data-flickity='{"groupCells":3 , "contain": true, "draggable": false, "pageDots": false}'>
@@ -76,8 +67,8 @@
             {% endfor %}
         </div>
         {% else %}
-        <div style="margin: 40px auto">
-            <p id="add-to-recommendations">ADD SOME SONGS IN YOUR PLAYLIST TO GET RECOMMENDATIONS</p>
+        <div>
+            <p id="no-song">ADD SOME SONGS IN YOUR PLAYLIST TO GET RECOMMENDATIONS</p>
         </div>
         {% endif %}
 

@@ -29,10 +29,11 @@ class Playlist(models.Model):
     playlist_name = models.CharField(max_length=50, default="name")
     image = models.ImageField(upload_to="playlist_images/", validators=[FileExtensionValidator(allowed_extensions=['jpeg', 'jpg', 'png'])], default="media/images/music-placeholder.png")
     plays = models.IntegerField(default=0)
+    songs = models.ManyToManyField(Song, related_name='playlist')
     slug = models.SlugField()
 
     def __str__(self):
-        return self.user.first_name
+        return self.playlist_name
 
 
 class LikedSong(models.Model):

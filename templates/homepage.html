@@ -62,13 +62,13 @@
                 </div>
             {% endfor %}
         </div>
-    </div>
+    </div> -->
 
 
     <h2>Your Paylists</h2>
 
     <div class="main_content">
-        {% for playlist in Playlist %}
+        {% for playlist in myPlaylists %}
             <section class="main_song">
                 <img src="{{ playlist.image}}" alt="playlist image">
                 <div class="middle">
@@ -78,19 +78,16 @@
             </section>
         {% endfor %}
     </div>
-    -->
+    
     <div id="divId">
         {% if myPlaylists %}
-        <p style="margin: 5px; font-size: 0.75rem; font-weight: 700; color: rgb(138, 138, 138); text-align: left;">
-            Add This Song To Your Playlist</p>
+            <p style="margin: 5px; font-size: 0.75rem; font-weight: 700; color: rgb(138, 138, 138); text-align: left;">Add This Song To Your Playlist</p>
         {% for playlist in myPlaylists %}
-        <a class="left-panel-btn" id="D_{{playlist.playlist_id}}"
-            onclick="sendPostRequestPlaylistSong(this)">{{playlist.playlist_name}}</a><br>
+            <a class="left-panel-btn" id="D_{{playlist.playlist_id}}" onclick="sendPostRequestPlaylistSong(this)">{{playlist.playlist_name}}</a><br>
         {% endfor %}
         {% else %}
-        <p style="margin: 5px; font-size: 0.8rem; font-weight: 700; color: rgb(138, 138, 138); text-align: left;">
-            You don't have any Playlist.</p>
-        <a class="create-p" onclick="$('#divId').css({display: 'none'}); document.getElementById('modal-wrapper-playlist').style.display='block'"><i class="fas fa-plus"></i> Create Playlist</a>
+            <p style="margin: 5px; font-size: 0.8rem; font-weight: 700; color: rgb(138, 138, 138); text-align: left;">You don't have any Playlist.</p>
+            <a class="create-p" onclick="$('#divId').css({display: 'none'}); document.getElementById('modal-wrapper-playlist').style.display='block'"><i class="fas fa-plus"></i> Create Playlist</a>
         {% endif %}
     </div>
 

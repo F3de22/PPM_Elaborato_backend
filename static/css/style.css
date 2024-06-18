@@ -523,17 +523,17 @@ header form{
 
 /* PLAYLIST */
 
-.playlist_header img{
-    background-color: #FF0000;
-    position: absolute;
-    left:100px;
-    top:1500px;
-}
-
-.card {
+.card{
     padding: 30px 0;
     display: grid;
     grid-template-columns: 25% 75%;
+    background-color: transparent;
+    border: none;
+}
+
+.card img{
+    max-width:240px;
+    max-height:240px;
 }
 
 .cardData{
@@ -542,7 +542,11 @@ header form{
 
 .cardData h1{
     font-family: Lato,sans-serif;
-    font-weight: 500;
+    font-weight: 900;
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+    left:0;
     font-size: 2.25rem;
     line-height: 1.8;
     word-spacing: 1px;
@@ -550,10 +554,10 @@ header form{
 }
 
 .cardData p{
-    margin: 0 10px 10px 0;
+    margin: 50px 10px 0 0;
+    font-weight: 700;
     font-size: 1rem;
     font-family: 'Roboto', sans-serif;
-    color: rgb(172, 169, 169);
 }
 
 .card img{
@@ -564,12 +568,20 @@ header form{
     width: 85%;
 }
 
+#no-song{
+    margin: 10px 35px;
+    text-decoration: underline;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
 #your-song{
-    margin-left: 35px;
+    margin-left: 25px;
     margin-top: 10px;
-    font-size: 1.35rem;
+    font-size: 1.8rem;
     font-family: sans-serif;
-    color: rgb(65, 63, 63);
+    color: white;
+    font-weight: 700;
 }
 
 #add_song_btn{
@@ -604,22 +616,6 @@ header form{
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0), 0 2px 2px 0 rgba(0, 0, 0, 0.1);
     background-color: rgb(255, 255, 255);
     transition: 0.3s;
-}
-
-.headings {
-    margin: 30px 10px 10px 65px;
-    font-size: 1rem;
-    font-family: 'Roboto', sans-serif;
-    color: rgb(43, 43, 43);
-}
-
-.center {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
 }
 
 #playlist {
@@ -675,10 +671,11 @@ header form{
 }
 
 #recommended-tit{
-    margin: 100px 0 -30px 5px;
-    font-size: 1.35rem;
+    margin: 30px 0 0 25px;
+    font-size: 1.8rem;
+    font-weight: 700;
     font-family: sans-serif;
-    color: rgb(65, 63, 63);
+    color: white;
 }
 
 #add-to-recommendations{
@@ -721,12 +718,6 @@ header form{
     font-size: 0.85rem;
 }
 
-.movie-name {
-    margin: auto;
-    color: rgb(143, 142, 142);
-    font-size: 0.8rem;
-}
-
 .remove-song-from-playlist-btn {
     margin: auto;
     font-size: 1.5rem;
@@ -754,6 +745,7 @@ header form{
     border: none;
     padding: 6px 25px;
     margin-top: 30px;
+    margin-left: 30px;
     font-size: 0.9rem;
     outline: none;
     color: white;
@@ -810,23 +802,6 @@ header form{
     margin: auto;
     height: 50px;
     left: 0;
-}
-
-.songpost_data {
-    display: grid;
-    grid-template-columns: 25% 30% 25% 20%;
-}
-
-.singer-name {
-    margin: auto 30px;
-    color: rgb(143, 142, 142);
-    font-size: 0.8rem;
-}
-
-.song-name {
-    margin: auto 5px;
-    color: rgb(75, 74, 74);
-    font-size: 0.85rem;
 }
 
 .add-playlist-btn-allSongs {
