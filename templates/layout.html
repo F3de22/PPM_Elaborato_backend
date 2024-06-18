@@ -64,7 +64,7 @@
 
     <main>
     <div id='modal-wrapper-playlist' class='modal'>
-        <form class='modal-content' action='music/createPlaylist' method="POST">{% csrf_token %}
+        <form class='modal-content' action='/createPlaylist' method="POST">{% csrf_token %}
             <h2>Create Playlist</h2>
             <div class='container'>
                 <input id="playname-input" type='text' placeholder='Your New Playlist Name' name='playlist_name' required>
@@ -83,28 +83,15 @@
         <script>
             function new_playlist(){
                 document.getElementById("modal-wrapper-playlist").style.display='block'}
-        
-            var modal_playlist = document.getElementById('modal-wrapper-playlist');
+                var modal_playlist = document.getElementById('modal-wrapper-playlist');
+            
+            
             window.onclick = function (event) {
-                if (event.target == modal_playlist) {
+            if (event.target == modal_playlist) {
                     modal_playlist.style.display = 'none';
                 }
             }
-
-            function audioBar(el) {
-                var main_id = el.id
-                var song_img = document.getElementById("A_" + main_id)
-                var song_name = document.getElementById("B_" + main_id)
-                var song_movie = document.getElementById("C_" + main_id)
-
-                var audio_img = document.getElementById("audio-img")
-                audio_img.src = song_img.src;
-
-                console.log(song_name.innerText);
-                console.log(song_movie.innerText);
-                document.getElementById("audio-song").innerText = song_name.innerText;
-                document.getElementById("audio-movie").innerText = song_movie.innerText;
-            }
+            
 
             var play = true;
             var myAudio = document.getElementById("audioPlayer");

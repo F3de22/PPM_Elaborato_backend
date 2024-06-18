@@ -14,12 +14,6 @@ def playlist(request):
     return render(request, 'music/playlist.html', {'playlist': play_list})
 
 
-def song_list(request):
-    songs = Song.objects.all()
-    print('My songs are', songs)
-    return render(request, 'homepage.html', {'songs': songs})
-
-
 def createPlaylist(request):
     user = request.user
     if(user.is_authenticated):
@@ -32,7 +26,6 @@ def createPlaylist(request):
         return redirect("music:playlist")
     else:
         return redirect("users:login")
-
 
 
 def all_songs(request):
