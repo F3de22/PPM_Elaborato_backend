@@ -540,6 +540,22 @@ header form{
     padding: 0 20px;
 }
 
+.cardData h1{
+    font-family: Lato,sans-serif;
+    font-weight: 500;
+    font-size: 2.25rem;
+    line-height: 1.8;
+    word-spacing: 1px;
+    color: rgb(29, 29, 29);
+}
+
+.cardData p{
+    margin: 0 10px 10px 0;
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+    color: rgb(172, 169, 169);
+}
+
 .card img{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 4%;
@@ -658,6 +674,19 @@ header form{
     left: 0;
 }
 
+#recommended-tit{
+    margin: 100px 0 -30px 5px;
+    font-size: 1.35rem;
+    font-family: sans-serif;
+    color: rgb(65, 63, 63);
+}
+
+#add-to-recommendations{
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+    color: rgb(129, 126, 126);
+}
+
 .play-btn_songpost {
     position: absolute;
     width: 55px;
@@ -666,6 +695,13 @@ header form{
     text-align: center;
     opacity: 0;
     transition: opacity .2s ease;
+}
+
+.no-songs{
+    margin: 100px 0 -30px 5px;
+    font-size: 1.35rem;
+    font-family: sans-serif;
+    color: rgb(65, 63, 63);
 }
 
 .songpost_data {
@@ -731,3 +767,93 @@ header form{
     background-color: #f51313;
     transition: 0.3s;
 }
+
+/* ALL SONGS PAGE */
+
+.sameMovieCard {
+    margin: 5px 150px 5px 20px;
+    display: grid;
+    grid-template-columns: 10% 90%;
+    padding: 10px 5px;
+    transition: 0.3s;
+}
+
+.sameMovieCard:hover {
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0), 0 2px 2px 0 rgba(0, 0, 0, 0.1);
+    background-color: rgb(255, 255, 255);
+    transition: 0.3s;
+}
+
+#songlist {
+    list-style: none;
+}
+
+#songlist li a {
+    color: rgb(179, 177, 177);
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+#songlist li a:hover {
+    color: #2bc5b4;
+    transition: 0.2s;
+}
+
+#songlist .current-song a {
+    color: #2bc5b4;
+}
+
+.container_songpost img {
+    border-radius: 4%;
+    position: absolute;
+    width: 70%;
+    margin: auto;
+    height: 50px;
+    left: 0;
+}
+
+.songpost_data {
+    display: grid;
+    grid-template-columns: 25% 30% 25% 20%;
+}
+
+.singer-name {
+    margin: auto 30px;
+    color: rgb(143, 142, 142);
+    font-size: 0.8rem;
+}
+
+.song-name {
+    margin: auto 5px;
+    color: rgb(75, 74, 74);
+    font-size: 0.85rem;
+}
+
+.add-playlist-btn-allSongs {
+    margin: auto;
+    font-size: 1.4rem;
+    opacity: 0;
+    color: rgb(143, 142, 142);
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.add-playlist-btn-allSongs:hover {
+    transition: 0.25s;
+    color: rgb(107, 104, 104);
+}
+
+.sameMovieCard:hover .add-playlist-btn-allSongs {
+    opacity: 1;
+}
+
+.songName {
+    font-family: 'Baloo Bhai 2', cursive;
+    font-size: 0.9rem;
+    line-height: 2;
+    color: rgb(71, 70, 70);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    }

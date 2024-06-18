@@ -7,11 +7,34 @@ import json
 import os
 
 
-# Create your views here.
-
-def playlist(request):
-    play_list = Song.objects.all()
-    return render(request, 'music/playlist.html', {'playlist': play_list})
+def playlist(request, id):
+    user = request.user
+    if user.is_authenticated:
+        myPlaylists = list(Playlist.objects.filter(user=user))
+        if request.method == "POST":
+            song_id = request.POST["music_id"]
+            playlist = Playlist.objects.filter(playlist_id=id).first()
+            if song_id in playlist.music_ids:
+                playlist.music_ids.remove(song_id)
+                playlist.plays -= 1
+                playlist.save()
+            message = "Successfull"
+            print(message)
+            return HttpResponse(json.dumps({'message': message}))
+        else:
+            images = os.listdir("media/playlist_images")
+            print(images)
+            currPlaylist = Playlist.objects.filter(playlist_id=id).first()
+            music_ids = currPlaylist.music_ids
+            playlistSongs = []
+            recommendedSingers = []
+            for music_id in music_ids:
+                song = Song.objects.filter(song_id=music_id).first()
+                playlistSongs.append(song)
+            return render(request, "music/playlist.html", {'playlistInfo': currPlaylist,
+                                                           'playlistSongs': playlistSongs,
+                                                           'myPlaylists': myPlaylists,
+                                                           'recommendedSingers': recommendedSingers})
 
 
 def createPlaylist(request):
@@ -51,36 +74,6 @@ def search_results(request):
                       {'songsFound': songsFound, 'myPlaylists': myPlaylists})
     else:
         return redirect("/")
-
-
-def playlist(request, id):
-    user = request.user
-    if user.is_authenticated:
-        myPlaylists = list(Playlist.objects.filter(user=user))
-        if request.method == "POST":
-            song_id = request.POST["music_id"]
-            playlist = Playlist.objects.filter(playlist_id=id).first()
-            if song_id in playlist.music_ids:
-                playlist.music_ids.remove(song_id)
-                playlist.plays -= 1
-                playlist.save()
-            message = "Successfull"
-            print(message)
-            return HttpResponse(json.dumps({'message': message}))
-        else:
-            images = os.listdir("media/playlist_images")
-            print(images)
-            currPlaylist = Playlist.objects.filter(playlist_id=id).first()
-            music_ids = currPlaylist.music_ids
-            playlistSongs = []
-            recommendedSingers = []
-            for music_id in music_ids:
-                song = Song.objects.filter(song_id=music_id).first()
-                playlistSongs.append(song)
-            return render(request, "music/playlist.html", {'playlistInfo': currPlaylist,
-                                                           'playlistSongs': playlistSongs,
-                                                           'myPlaylists': myPlaylists,
-                                                           'recommendedSingers': recommendedSingers})
 
 
 def deletePlaylist(request):
@@ -146,7 +139,7 @@ def likesong(request):
                     ids.append(i.music_id)
                 preserved = Case(*[When(pk=pk, then=pos) for pos, pk in enumerate(ids)])
                 likedSongs = Song.objects.filter(song_id__in=ids).order_by(preserved)
-                return render(request, "likedSong.html", {'likedSongs': likedSongs})
+                return render(request, "music/likedsongs.html", {'likedSongs': likedSongs})
         else:
             # print("User is not authenticated")
             return redirect("/")

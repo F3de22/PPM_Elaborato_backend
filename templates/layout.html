@@ -73,25 +73,40 @@
             </div>
         </form>
     </div>
-    
+
+    <div id="audio_main" class="audio-decs">
+        <div class="audio-data">
+            <div>
+                <img id="audio-img" src="/media/images/music-placeholder.png" alt="Image here">
+            </div>
+            <div id="text-song">
+                <h4 id="audio-song">Song Name</h4>
+                <p id="audio-artist">Artist Name</p>
+            </div>
+        </div>
+        <div style="margin: auto 0">
+            <audio preload="auto" controls id="audioPlayer">
+                <source src="" id="audioSource">
+            </audio>
+        </div>
+    </div>
+
     {% block main-content %}
         
     {% endblock %}
     </main>
 
-
         <script>
             function new_playlist(){
                 document.getElementById("modal-wrapper-playlist").style.display='block'}
-                var modal_playlist = document.getElementById('modal-wrapper-playlist');
-            
-            
+
+
+            var modal_playlist = document.getElementById('modal-wrapper-playlist');
             window.onclick = function (event) {
             if (event.target == modal_playlist) {
                     modal_playlist.style.display = 'none';
                 }
             }
-            
 
             var play = true;
             var myAudio = document.getElementById("audioPlayer");
@@ -110,6 +125,7 @@
                 return false;
             }
             window.addEventListener("keydown", onKeyDown, false);
+            
         </script>
         {% block javascript %}
         {% endblock %}

@@ -13,28 +13,25 @@
 
     <div id="body-center">
         <div class="card">
-            <img src="/media/images/music-placeholder.png" alt="No Image Found">
+            <img src="/media/images/likedsongs.jpg" width="250px" height="250px">
             <div class="cardData">
-                <h1 id="B_{{playlistInfo.playlist_id}}">{{playlistInfo.name}}</h1>
-                <p>{{playlistInfo.plays}} Songs</p>
+                <h1>LIKED SONGS</h1>
                 <br>
                 <a href="/allSongs" id="add_song_btn"><i class="fas fa-plus"></i>
                     Add Song</a>
             </div>
         </div>
 
-        {% if playlistSongs %}
-        <h2 id="your-song">
-            Your Songs:</h2>
+        {% if likedSongs %}
+        <h2 id="your-song">There are {{ likedSongs|length }} liked songs:</h2>
         <div id="playlist">
-            {% for i in playlistSongs %}
+            {% for i in likedSongs %}
             <div class="sameMovieCard" id="Div_{{i.song_id}}">
                 <div class="container_songpost">
                     <img src="{{i.image.url}}" id="A_{{i.song_id}}" />
                     <div class="overlay_songpost"></div>
                     <div class="play-btn_songpost">
-                        <li><a href="{{i.song.url}}" id="{{i.song_id}}"><i class="far fa-play-circle fa-2x"></i></a>
-                        </li>
+                        <a href="{{i.song.url}}" id="{{i.song_id}}"><i class="far fa-play-circle fa-2x"></i></a>
                     </div>
                 </div>
                 <div class="songpost_data">
@@ -47,15 +44,13 @@
                 </div>
             </div>
             {% endfor %}
-
         </div>
         {% else %}
-        <h2 class="no-songs">Currently No Songs Added in Your Playlist</h2>
+        <h2 class="no-songs">Currently you have no Liked Songs</h2>
         {% endif %}
 
 
         <h2 id="reccommended-tit">Recommended Artists</h2>
-
         {% if recommendedSingers %}
         <div class="main-carousel" data-flickity='{"groupCells":3 , "contain": true, "draggable": false, "pageDots": false}'>
             {% for i in recommendedSingers %}
@@ -64,8 +59,8 @@
                     <div class="containera">
                         <img style="border-radius: 100%;" src="{{i.image.url}}" alt=""/>
                         <div style="border-radius: 100%;" class="overlaya"></div>
-                        <div class="play-btn"><a href="/album/{{i.singer_id}}"> <i class="fas fa-play-circle"></i>
-                            </a>
+                        <div class="play-btn">
+                            <a href="/album/{{i.singer_id}}"> <i class="fas fa-play-circle"></i></a>
                         </div>
                     </div>
                     <div>
@@ -81,12 +76,6 @@
         </div>
         {% endif %}
 
-        <div>
-            <form action="/deletePlaylist" method="POST">{% csrf_token %}
-                <input type="hidden" name="playlist_id" value="{{playlistInfo.playlist_id}}">
-                <button id="delete-btn" type="submit">Delete Playlist</button>
-            </form>
-        </div>
 
         <div id="footer"></div>
     </div>

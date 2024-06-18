@@ -95,27 +95,8 @@
     </div>
 
 
-    <div id="audio_main" class="audio-decs">
-        <div class="audio-data">
-            <div>
-                <img id="audio-img" src="/media/images/music-placeholder.png" alt="Image here">
-            </div>
-            <div id="text-song">
-                <h4 id="audio-song">Song Name</h4>
-                <p id="audio-artist">Artist Name</p>
-            </div>
-        </div>
-        <div style="margin: auto 0">
-            <audio preload="auto" controls id="audioPlayer">
-                <source src="" id="audioSource">
-            </audio>
-        </div>
-    </div>
-
-
-
     <script>
-    
+
         function playSong(element){
             var songUrl = element.getAttribute('data-song-url');
             var audioPlayer = document.getElementById('audioPlayer');
@@ -130,13 +111,13 @@
             console.log(newSongName)
             console.log(newImage)
             console.log(newArtistName)
-            
+
             document.getElementById("audio-img").src = newImage;
             document.getElementById("audio-song").textContent = newSongName;
             document.getElementById("audio-artist").textContent = newArtistName;
         }
-    
-        
+
+
         var song_id_for_playlist;
         function showDiv(el) {
             // alert(el.id + " is Clicked!");
@@ -148,19 +129,19 @@
                 position: "absolute",
                 display: "block"
             });
-    
+
         }
         $(document).mouseup(function (e) {
-    
+
             var container = $("#divId");
-    
+
             if (!container.is(e.target) && container.has(e.target).length === 0) {
-    
+
                 container.fadeOut();
-    
+
             }
         });
-    
+
         function sendPostRequestPlaylistSong(el) {
             // alert("Song ID: "+song_id_for_playlist+" | Playlist ID: "+el.id);
             var data = song_id_for_playlist + "|" + el.id;

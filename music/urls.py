@@ -10,5 +10,5 @@ urlpatterns = [
     path('allsongs/', views.all_songs, name="allsongs"),
     path('', views.deletePlaylist, name="deletePlaylist"),
     path('', views.addSongToPlaylist, name="addSongToPlaylist"),
-    path('', views.likesong, name="likesong"),
+    path('likedsongs/', views.likesong, name="likedsongs"),
 ]

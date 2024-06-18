@@ -1,33 +1,30 @@
 {% extends 'layout.html' %}
 {% block main-content %}
-    <li>this atleast must show</li>
-        {% for song in songs %}
-            <li>{{ song }}</li>
-        {% empty %}
-            <li>Oops! I have nothing in the database :(</li>
-        {% endfor %}
-    {% for i in songs %}
-        <div class="carousel-cell">
-            <section class="main_song">
-                <div class="song-card">
-                    <div class="containera">
-                        <img src="{{i.image}}" id="A_{{i.id}}" alt="song cover">
-                        <div class="overlaya"></div>
-                        <div>
-                            <a class="play-btn" href="{{i.preview_url}}" id="{{i.id}}"><i class="fas fa-play-circle"></i></a>
-                            {% if user.is_authenticated %}
-                                <div class="add-playlist-btn">
-                                    <a id="W_{{i.song_id}}" title="Add to Playlist" onclick="showDiv(this)"></a>
-                                </div>
-                            {% endif %}
-                        </div>
+    {% if songs %}
+        <p>There are {{ songs|length }} songs:</p>
+    {% else %}
+        <p>No songs found.</p>
+    {% endif %}
+    <div id="songlist">
+            {% for i in allsongs %}
+            <div class="sameMovieCard">
+                <div class="container_songpost">
+                    <img src="{{i.image.url}}" id="A_{{i.song_id}}"/>
+                    <div class="overlay_songpost"></div>
+                    <div class="play-btn_songpost">
+                        <a href="{{i.song.url}}" id="{{i.song_id}}"><i class="far fa-play-circle fa-2x"></i></a>
                     </div>
                 </div>
-                <div>
-                    <p class="songName" id="B_{{i.id}}">{{i.name}}</p>
+                <div class="songpost_data">
+                    <h5 class="song-name" id="B_{{i.song_id}}">
+                        {{i.name}}</h5>
+                    <p class="singer-name">{{i.singer}}</p>
+                    {% if user.is_authenticated %}
+                    <a class="add-playlist-btn-allSongs" id="W_{{i.song_id}}" onclick="showDiv(this)" title="Add to Playlist"> <i class="fas fa-ellipsis-h"></i></a>
+                    {% endif %}
                 </div>
-                <p class="artistName">{{i.singer1}}</p>
-            </section>
+            </div>
+            {% endfor %}
+
         </div>
-    {% endfor %}
 {% endblock %}
