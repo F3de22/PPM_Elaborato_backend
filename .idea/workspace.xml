@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="40d238bf-badb-4aa1-aa10-39dde40a3919" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/music/templates/music/searchResults.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PPM_elaborato_backend/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/PPM_elaborato_backend/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/templates/music/playlist.html" beforeDir="false" afterPath="$PROJECT_DIR$/music/templates/music/playlist.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/music/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/music/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/staticfiles.json" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/staticfiles.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/layout.html" afterDir="false" />
-    </list>
+    <list default="true" id="40d238bf-badb-4aa1-aa10-39dde40a3919" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -175,7 +165,7 @@
       <workItem from="1718698149645" duration="10325000" />
       <workItem from="1718710877088" duration="15855000" />
       <workItem from="1718734811525" duration="12892000" />
-      <workItem from="1718783851183" duration="32178000" />
+      <workItem from="1718783851183" duration="32554000" />
     </task>
     <servers />
   </component>
