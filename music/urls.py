@@ -8,12 +8,11 @@ app_name = 'music'
 urlpatterns = [
     path('playlist/<int:playlist_id>/', views.playlist, name="playlist"),
     path('createPlaylist', views.createPlaylist, name='createPlaylist'),
-    path('', views.search_results, name="searchResults"),
+    path('searchResults/', views.search_results, name="search_results"),
     path('allsongs/', views.all_songs, name="allsongs"),
     path('deletePlaylist', views.deletePlaylist, name="deletePlaylist"),
-    path('', views.addSongToPlaylist, name="addSongToPlaylist"),
+    path('addSongToPlaylist', views.addSongToPlaylist, name="addSongToPlaylist"),
     path('likedsongs/', views.likesong, name="likedsongs"),
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

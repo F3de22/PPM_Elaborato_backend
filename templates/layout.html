@@ -47,8 +47,9 @@
         {% endif %}
             </div>
             <h1><a href="{% url 'homepage' %}">PPMusic</a></h1>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <form class="d-flex" role="search" autocomplete="off" method="POST" action="{% url 'music:search_results' %}"> 
+                {% csrf_token %}
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="data">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
             {% if user.is_authenticated %}
@@ -149,11 +150,11 @@
             }
 
 
+            
         var song_id_for_playlist;
         function showDiv(el) {
-            // alert(el.id + " is Clicked!");
             var div = $("#divId");
-            song_id_for_playlist = el.id;
+            song_id_for_playlist = $(el).data('song-id');
             div.css({
                 top: event.pageY,
                 left: event.pageX,
@@ -163,13 +164,9 @@
 
         }
         $(document).mouseup(function (e) {
-
             var container = $("#divId");
-
             if (!container.is(e.target) && container.has(e.target).length === 0) {
-
                 container.fadeOut();
-
             }
         });
 
@@ -177,11 +174,14 @@
             // alert("Song ID: "+song_id_for_playlist+" | Playlist ID: "+el.id);
             var data = song_id_for_playlist + "|" + el.id;
             $.ajax({
-                "url": "addSongToPlaylist",
+                "url": "/addSongToPlaylist",
                 "type": "post",
                 "data": { 'data': data, 'csrfmiddlewaretoken': '{{ csrf_token }}' },
-                "success": showAlert('success', "Song Added In Your Playlist"),
-                // "error": error_callback
+                success: function(response) {
+                alert("Song added to your playlist");
+                location.reload();},
+            error: function(xhr, status, error) {
+            alert("Failed to add song to playlist.");}
             })
             var div = $("#divId");
             div.css({

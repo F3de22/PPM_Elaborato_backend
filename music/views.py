@@ -63,12 +63,13 @@ def search_results(request):
         myPlaylists = list(Playlist.objects.filter(user=user))
     if request.method == "POST":
         data = request.POST["data"]
-        allSongs = Song.objects.all()
-        songsFound = allSongs.filter(name__icontains=data)
-        moviesFound = allSongs.filter(movie__icontains=data)
-        songsFound = list(set(list(songsFound) + list(moviesFound)))[:6]
+        print(f"Search term: {data}")
+        songsFound = Song.objects.filter(name__icontains=data)
+        print(f"Songs found by name: {songsFound}")
+        songsFound = list(songsFound)[:6]
+        print(f"Total songs found: {songsFound}")
 
-        return render(request, 'searchResults.html',
+        return render(request, 'music/searchResults.html',
                       {'songsFound': songsFound, 'myPlaylists': myPlaylists})
     else:
         return redirect("/")
@@ -77,30 +78,28 @@ def search_results(request):
 def deletePlaylist(request):
     if request.method == "POST":
         playlist_id = request.POST["playlist_id"]
-        # print(playlist_id)
         Playlist.objects.filter(playlist_id=playlist_id).delete()
         messages.info(request, "Playlist Deleted")
-        print("Playlist Deleted")
     return redirect("/")
 
 
 def addSongToPlaylist(request):
     user = request.user
-    if user.is_authenticated:
+    if request.method == "POST" and request.user.is_authenticated:
         data = request.POST['data']
-        ids = data.split("|")
-        song_id = ids[0][2:]
-        playlist_id = ids[1][2:]
-        print(ids[0][2:], ids[1][2:])
-        currPlaylist = Playlist.objects.filter(playlist_id=playlist_id).first()
-        song = Song.objects.filter(song_id=song_id).first()
-        if song not in currPlaylist.songs.all():
-            currPlaylist.songs.add(song)
-            currPlaylist.plays = currPlaylist.songs.count()
-            currPlaylist.save()
-        return HttpResponse("Successfull")
+        if data:
+            song_id, playlist_id = data.split("|")
+            song_id = song_id[0][2:]
+            playlist_id = playlist_id[1][2:]
+            currPlaylist = Playlist.objects.filter(playlist_id=playlist_id).first()
+            song = Song.objects.filter(song_id=song_id).first()
+            if song not in currPlaylist.songs.all():
+                currPlaylist.songs.add(song)
+                currPlaylist.plays = currPlaylist.songs.count()
+                currPlaylist.save()
+            return HttpResponse("Successfull")
     else:
-        return redirect("/")
+        return redirect("users:login")
 
 
 def likesong(request):
