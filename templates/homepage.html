@@ -8,11 +8,11 @@
 
 {% block main-content %}
     <div id="All-songs" style="padding: 5px">
-        <h2 id>All Songs</h2>
+        <h2 class="home-tit"><a href="{% url 'music:allsongs' %}">All Songs</a></h2>
         {% if songs %}
-            <p>There are {{ songs|length }} songs:</p>
+            <p style="margin-left: 20px">There are {{ songs|length }} songs:</p>
         {% else %}
-            <p>No songs found.</p>
+            <p style="margin-left: 20px">No songs found.</p>
         {% endif %}
         <div class="main-carousel" data-flickity='{"groupCells":5 , "contain": true, "pageDots": false, "draggable": false, "cellAlign": "left", "lazyLoad": true}'>
             {% for i in songs %}
@@ -23,7 +23,7 @@
                                 <img src="{{i.image}}" id="A_{{i.song_id}}" alt="song cover">
                                 <div class="overlaya"></div>
                                 <div>
-                                    <a class="play-btn" data-song-url="{{i.song.url}}" id="{{i.song_id}}" onclick="playSong(this)"><i class="fas fa-play-circle fa-2x"></i></a>
+                                    <a class="play-btn" data-song-url="/{{i.song}}" id="{{i.song_id}}" onclick="playSong(this)"><i class="fas fa-play-circle fa-2x"></i></a>
                                     {% if user.is_authenticated %}
                                         <div class="add-playlist-btn">
                                             <a id="W_{{i.song_id}}" title="Add to Playlist" onclick="showDiv(this)"><i class="fas fa-ellipsis-h"></i></a>
@@ -33,7 +33,7 @@
                             </div>
                         </div>
                         <div>
-                            <p class="songName" id="B_{{i.song_id}}">{{i.name}}</p>
+                            <p class="songName" id="B_{{i.song_id}}"><a data-song-url="/{{i.song}}" id="{{i.song_id}}" onclick="playSong(this)">{{i.name}}</a></p>
                             <p class="artistName" id="C_{{i.song_id}}">{{i.artist}}</p>
                         </div>
                     </section>
@@ -65,24 +65,25 @@
     </div> -->
 
 
-    <h2>Your Paylists</h2>
-
+    <h2 class="home-tit">Your Paylists</h2>
+    {% if my_playlists %}
+            <p style="margin-left: 20px">You have {{ my_playlists|length }} playlists:</p>
+        {% else %}
+        <p style="margin-left: 20px">No playlists found. if you wanto to create a playlist <a onclick="document.getElementById('modal-wrapper-playlist').style.display='block'"><u>click here</u></a></p>
+        {% endif %}
     <div class="main_content">
-        {% for playlist in myPlaylists %}
+        {% for playlist in my_playlists %}
             <section class="main_song">
-                <img src="{{ playlist.image}}" alt="playlist image">
-                <div class="middle">
-                    <p class="song-title">{{ playlist.name }}</p>
-                    <button class="play-button"><img src="../media/images/play-32.png" alt="play button"></button>
-                </div>
+                <a href="{% url 'music:playlist' playlist.playlist_id %}"><img src="{{ playlist.image.url}}" alt="playlist image"></a>
+                <a class="playlist-title" href="{% url 'music:playlist' playlist.playlist_id %}">{{ playlist.playlist_name }}</a>
             </section>
         {% endfor %}
     </div>
     
     <div id="divId">
-        {% if myPlaylists %}
+        {% if my_playlists %}
             <p style="margin: 5px; font-size: 0.75rem; font-weight: 700; color: rgb(138, 138, 138); text-align: left;">Add This Song To Your Playlist</p>
-        {% for playlist in myPlaylists %}
+        {% for playlist in my_playlists %}
             <a class="left-panel-btn" id="D_{{playlist.playlist_id}}" onclick="sendPostRequestPlaylistSong(this)">{{playlist.playlist_name}}</a><br>
         {% endfor %}
         {% else %}
@@ -90,70 +91,9 @@
             <a class="create-p" onclick="$('#divId').css({display: 'none'}); document.getElementById('modal-wrapper-playlist').style.display='block'"><i class="fas fa-plus"></i> Create Playlist</a>
         {% endif %}
     </div>
-
-
-    <script>
-
-        function playSong(element){
-            var songUrl = element.getAttribute('data-song-url');
-            var audioPlayer = document.getElementById('audioPlayer');
-            var audioSource = document.getElementById('audioSource');
-            audioSource.src = songUrl;
-            audioPlayer.load();
-            audioPlayer.play();
-            var songId = element.id;
-            var newImage = document.getElementById("A_" + songId).src;
-            var newSongName = document.getElementById("B_" + songId).textContent;
-            var newArtistName = document.getElementById("C_" + songId).textContent;
-            console.log(newSongName)
-            console.log(newImage)
-            console.log(newArtistName)
-
-            document.getElementById("audio-img").src = newImage;
-            document.getElementById("audio-song").textContent = newSongName;
-            document.getElementById("audio-artist").textContent = newArtistName;
-        }
-
-
-        var song_id_for_playlist;
-        function showDiv(el) {
-            // alert(el.id + " is Clicked!");
-            var div = $("#divId");
-            song_id_for_playlist = el.id;
-            div.css({
-                top: event.pageY,
-                left: event.pageX,
-                position: "absolute",
-                display: "block"
-            });
-
-        }
-        $(document).mouseup(function (e) {
-
-            var container = $("#divId");
-
-            if (!container.is(e.target) && container.has(e.target).length === 0) {
-
-                container.fadeOut();
-
-            }
-        });
-
-        function sendPostRequestPlaylistSong(el) {
-            // alert("Song ID: "+song_id_for_playlist+" | Playlist ID: "+el.id);
-            var data = song_id_for_playlist + "|" + el.id;
-            $.ajax({
-                "url": "addSongToPlaylist",
-                "type": "post",
-                "data": { 'data': data, 'csrfmiddlewaretoken': '{{ csrf_token }}' },
-                "success": showAlert('success', "Song Added In Your Playlist"),
-                // "error": error_callback
-            })
-            var div = $("#divId");
-            div.css({
-                transition: "0.3s",
-                display: "none"
-            });
-        }
-    </script>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 {% endblock %}

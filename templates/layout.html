@@ -34,7 +34,8 @@
                 </button>
                 <ul class="dropdown-menu" data-bs-theme="dark">
                     <li><a class="dropdown-item" href="#">YOUR PLAYLISTS</a></li>
-                    <li><a class="dropdown-item" href="#">DISCOVER</a></li>
+                    <li><a class="dropdown-item" href="{% url 'music:allsongs' %}">ALL SONGS</a></li>
+                    <li><a class="dropdown-item" href="#">DISCOVER(recommendations)</a></li>
                     <li class="dropdown-divider"></li>
                     <li><a class="dropdown-item" onclick="document.getElementById('modal-wrapper-playlist').style.display='block'">+ CREATE A NEW PLAYLIST</a></li>
                 </ul>
@@ -64,10 +65,11 @@
 
     <main>
     <div id='modal-wrapper-playlist' class='modal'>
-        <form class='modal-content' action='{% url 'music:createPlaylist' %}' method="POST">{% csrf_token %}
+        <form class='modal-content' action='{% url 'music:createPlaylist' %}' method="POST" enctype="multipart/form-data">{% csrf_token %}
             <h2>Create Playlist</h2>
             <div class='container'>
                 <input id="playname-input" type='text' placeholder='Your New Playlist Name' name='playlist_name' required>
+                <input type="file" name="image" accept="image/*">
                 <br>
                 <input id="submitb" type='submit' value="Create Playlist">
             </div>
@@ -126,6 +128,67 @@
             }
             window.addEventListener("keydown", onKeyDown, false);
             
+            function playSong(element){
+            var songUrl = element.getAttribute('data-song-url');
+            var audioPlayer = document.getElementById('audioPlayer');
+            var audioSource = document.getElementById('audioSource');
+            audioSource.src = songUrl;
+            audioPlayer.load();
+            audioPlayer.play();
+            var songId = element.id;
+            var newImage = document.getElementById("A_" + songId).src;
+            var newSongName = document.getElementById("B_" + songId).textContent;
+            var newArtistName = document.getElementById("C_" + songId).textContent;
+            console.log(newSongName)
+            console.log(newImage)
+            console.log(newArtistName)
+
+            document.getElementById("audio-img").src = newImage;
+            document.getElementById("audio-song").textContent = newSongName;
+            document.getElementById("audio-artist").textContent = newArtistName;
+            }
+
+
+        var song_id_for_playlist;
+        function showDiv(el) {
+            // alert(el.id + " is Clicked!");
+            var div = $("#divId");
+            song_id_for_playlist = el.id;
+            div.css({
+                top: event.pageY,
+                left: event.pageX,
+                position: "absolute",
+                display: "block"
+            });
+
+        }
+        $(document).mouseup(function (e) {
+
+            var container = $("#divId");
+
+            if (!container.is(e.target) && container.has(e.target).length === 0) {
+
+                container.fadeOut();
+
+            }
+        });
+
+        function sendPostRequestPlaylistSong(el) {
+            // alert("Song ID: "+song_id_for_playlist+" | Playlist ID: "+el.id);
+            var data = song_id_for_playlist + "|" + el.id;
+            $.ajax({
+                "url": "addSongToPlaylist",
+                "type": "post",
+                "data": { 'data': data, 'csrfmiddlewaretoken': '{{ csrf_token }}' },
+                "success": showAlert('success', "Song Added In Your Playlist"),
+                // "error": error_callback
+            })
+            var div = $("#divId");
+            div.css({
+                transition: "0.3s",
+                display: "none"
+            });
+        }
         </script>
         {% block javascript %}
         {% endblock %}

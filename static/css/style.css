@@ -183,6 +183,10 @@ header form{
     cursor: pointer;
 }
 
+.left-panel-btn{
+    color:black;
+}
+
 /*.play-btn{
     align-content: center;
     justify-content: center;
@@ -197,13 +201,26 @@ header form{
 
 /* HOMEPAGE */
 
+.home-tit{
+    margin-left:20px;
+}
+
 .main_content{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: auto auto auto auto auto;
     max-width: 100%;
-    column-gap: 5%;
-    margin-left: 5%;
-    margin-top:50px;
+    column-gap: 3%;
+    margin-left: 3%;
+    margin-top:30px;
+}
+
+.main-carousel{
+    margin: 0 15px;
+}
+
+.main_content img{
+    width:200px;
+    height: 200px;
 }
 
 .song-card{
@@ -299,9 +316,9 @@ header form{
     opacity: 0.6;
 }
 
-.songName {
+.songName{
     font-family: 'Baloo Bhai 2', sans-serif;
-    color:white;
+    color: #ffc616;
     width: 150px;
     font-weight: 700;
     margin:0 0 0 7px;
@@ -348,24 +365,20 @@ header form{
     border-radius: 21px;
 }
 
-/*playlist{
-    list-style: none;
+.playlist-title{
+    font-family: 'Baloo Bhai 2', sans-serif;
+    color: white;
+    display: block;
+    width:200px;
+    font-weight: 700;
+    margin:5px 0 0 7px;
+    font-size: 1.1rem;
+    white-space: nowrap;
+    overflow: clip;
+    line-break: anywhere;
+    text-overflow: ellipsis;
+    text-align: center;
 }
-
-#playlist li a {
-    color: rgb(179, 177, 177);
-    text-decoration: none;
-    transition: 0.2s;
-}
-
-#playlist li a:hover {
-    color: #2bc5b4;
-    transition: 0.2s;
-}
-
-#playlist .current-song a {
-    color: #2bc5b4;
-} */
 
 #likeButton {
     margin: 10px 10px 10px 30px;
@@ -526,7 +539,7 @@ header form{
 .card{
     padding: 30px 0;
     display: grid;
-    grid-template-columns: 25% 75%;
+    grid-template-columns: 350px auto;
     background-color: transparent;
     border: none;
 }
@@ -537,7 +550,7 @@ header form{
 }
 
 .cardData{
-    padding: 0 20px;
+    padding: 0;
 }
 
 .cardData h1{
@@ -605,7 +618,7 @@ header form{
 }
 
 .sameMovieCard {
-    margin: 5px 150px 5px 20px;
+    margin: 5px 20px 5px 20px;
     display: grid;
     grid-template-columns: 10% 90%;
     padding: 10px 5px;
@@ -686,7 +699,8 @@ header form{
 
 .play-btn_songpost {
     position: absolute;
-    width: 55px;
+    width: 70px;
+    height: 70px;
     left: 0;
     top: 10px;
     text-align: center;
@@ -736,6 +750,7 @@ header form{
 }
 .sameMovieCard:hover .play-btn_songpost {
     opacity: 1;
+    z-index: 999;
 }
 
 #delete-btn {
@@ -761,20 +776,6 @@ header form{
 }
 
 /* ALL SONGS PAGE */
-
-.sameMovieCard {
-    margin: 5px 150px 5px 20px;
-    display: grid;
-    grid-template-columns: 10% 90%;
-    padding: 10px 5px;
-    transition: 0.3s;
-}
-
-.sameMovieCard:hover {
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0), 0 2px 2px 0 rgba(0, 0, 0, 0.1);
-    background-color: rgb(255, 255, 255);
-    transition: 0.3s;
-}
 
 #songlist {
     list-style: none;
@@ -822,7 +823,7 @@ header form{
     opacity: 1;
 }
 
-.songName {
+.namesong{
     font-family: 'Baloo Bhai 2', cursive;
     font-size: 0.9rem;
     line-height: 2;
@@ -831,4 +832,58 @@ header form{
     overflow: hidden;
     text-overflow: ellipsis;
     text-align: center;
-    }
+}
+
+#songlist{
+    margin-bottom:50px;
+    white-space: nowrap;
+}
+
+#songlist .play-btn{
+    position: absolute;
+    height: 70px;
+    width: 70px;
+    top:-10px;
+    left: 0;
+    text-align: center;
+    opacity: 0;
+    transition: opacity .35s ease;
+}
+
+#songlist img{
+    height: 70px;
+    width: 70px;
+}
+
+#songlist .container_songpost{
+    height: 70px;
+
+}
+
+#songlist .overlay_songpost{
+    height:70px;
+    width:70px;
+}
+
+#songlist .song-name{
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: black;
+    color: #ffc616;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+#songlist .singer-name{
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+    color:white;
+    font-weight: 700;
+    font-size:1.05rem;
+}
+
+
+#songlist #singer-name {
+    margin: auto;
+    color: rgb(143, 142, 142);
+    font-size: 0.8rem;
+}
