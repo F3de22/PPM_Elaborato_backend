@@ -5,13 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="40d238bf-badb-4aa1-aa10-39dde40a3919" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PPM_elaborato_backend/app.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/procfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runtime.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PPM_elaborato_backend/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/PPM_elaborato_backend/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -71,9 +66,9 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Scuola\PPM\PPM_elaborato_backend" />
       <recent name="E:\Scuola\PPM\PPM_elaborato_backend\media\songs" />
       <recent name="E:\Scuola\PPM\PPM_elaborato_backend\media\songimage" />
-      <recent name="E:\Scuola\PPM\PPM_elaborato_backend" />
       <recent name="E:\Scuola\PPM\PPM_elaborato_backend\templates\media\fonts" />
       <recent name="E:\Scuola\PPM\PPM_elaborato_backend\templates\media\images" />
     </key>
@@ -174,7 +169,7 @@
       <workItem from="1718698149645" duration="10325000" />
       <workItem from="1718710877088" duration="15855000" />
       <workItem from="1718734811525" duration="12892000" />
-      <workItem from="1718783851183" duration="20568000" />
+      <workItem from="1718783851183" duration="21946000" />
     </task>
     <servers />
   </component>
