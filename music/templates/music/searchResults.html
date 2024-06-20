@@ -6,39 +6,54 @@
 {% endblock %}
 
 {% block main-content %}
+
 {% if songsFound %}
     <h2 style="text-align: center; margin: 10px 0; font-size: 3rem">Songs Found:</h2>
-    <div id="songlist">
-    <p style="margin-left: 25px">{{ songsFound|length }} songs found:</p>
-        {% for i in songsFound %}
-            <div class="sameMovieCard">
-                <div class="container_songpost">
-                    <img src="/{{i.image}}" id="A_{{i.song_id}}" />
-                    <div class="overlay_songpost"></div>
-                    <div class="play-btn_songpost">
-                        <li><a class="play-btn" data-song-url="/{{i.song}}" id="{{i.song_id}}" onclick="playSong(this)"><i class="far fa-play-circle fa-2x"></i></a>
-                        </li>
+        <div id="songlist">
+        <p style="margin-left: 25px">{{ songsFound|length }} songs found:</p>
+            {% for i in songsFound %}
+                <div class="sameMovieCard">
+                    <div class="container_songpost">
+                        <img src="{{i.image.url}}" id="A_{{i.song_id}}" />
+                        <div class="overlay_songpost"></div>
+                        <div class="play-btn_songpost">
+                            <li><a class="play-btn" data-song-url="{{i.song.url}}" id="{{i.song_id}}" onclick="playSong(this)"><i class="far fa-play-circle fa-2x"></i></a>
+                            </li>
+                        </div>
+                    </div>
+                    <div class="songpost_data">
+                        <h5 class="song-name" id="B_{{i.song_id}}"><a data-song-url="{{i.song.url}}" id="{{i.song_id}}" onclick="playSong(this)">{{i.name}}</a></h5>
+                        <p class="singer-name" id="C_{{i.song_id}}">{{i.artist}}</p>
+                        {% if user.is_authenticated %}
+                        <a class="add-playlist-btn-allSongs" id="W_{{i.song_id}}" onclick="showDiv(this)" title="Add to Playlist"> <i
+                                class="fas fa-ellipsis-h"></i>
+                        </a>
+                        {% endif %}
                     </div>
                 </div>
-                <div class="songpost_data">
-                    <h5 class="song-name" id="B_{{i.song_id}}"><a data-song-url="/{{i.song}}" id="{{i.song_id}}" onclick="playSong(this)">{{i.name}}</a></h5>
-                    <p class="singer-name" id="C_{{i.song_id}}">{{i.artist}}</p>
-                    {% if user.is_authenticated %}
-                    <a class="add-playlist-btn-allSongs" id="W_{{i.song_id}}" onclick="showDiv(this)" title="Add to Playlist"> <i
-                            class="fas fa-ellipsis-h"></i>
-                    </a>
-                    {% else %}
-                    <a class="add-playlist-btn-allSongs" onclick="$('#loginBtn').click();" title="Add to Playlist"> <i
-                            class="fas fa-ellipsis-h"></i>
-                    </a>
-                    {% endif %}
-                </div>
-            </div>
-        {% endfor %}
-    </div>
+            {% endfor %}
+        </div>
 {% else %}
-    <h2 style="text-align: center; margin: 10px 0; font-size: 3rem">Songs Found:</h2>
-    <p style="margin-left: 25px; text-align: center; margin-top:150px;">NO SONGS FOUND</p>
+        <h2 style="text-align: center; margin: 10px 0; font-size: 3rem">Songs Found:</h2>
+        <p style="margin-left: 25px; text-align: center; margin-top:100px;">NO SONGS FOUND</p>
+{% endif %}
+
+{% if user.is_authenticated %}
+{% if playlistsFound %}
+        <h2 style="text-align: center; margin: 10px 0; font-size: 3rem">Playlist Found:</h2>
+        <p style="margin-left: 25px">{{ playlistsFound|length }} playlists found:</p>
+        <div class="main_content">
+        {% for i in playlistsFound %}
+                <section class="main_song">
+                    <a href="{% url 'music:playlist' i.playlist_id %}"><img style="border-radius: 4%" src="{% if i.image %}{{ i.image.url }}{% else %}/media/images/music-placeholder.png{% endif %}" alt="playlist image"></a>
+                    <a class="playlist-title" href="{% url 'music:playlist' i.playlist_id %}">{{ i.playlist_name }}</a>
+                </section>
+        {% endfor %}
+        </div>
+{% else %}
+        <h2 style="text-align: center; margin: 10px 0; font-size: 3rem">Playlists Found:</h2>
+        <p style="margin-left: 25px; text-align: center; margin-top:100px;">NO PLAYLISTS FOUND</p>
+{% endif %}
 {% endif %}
 
     <div id="divId">

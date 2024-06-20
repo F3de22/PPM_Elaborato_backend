@@ -111,6 +111,15 @@ header form{
     z-index: 999;
 }
 
+.heart-icon {
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.heart-red {
+    color: red !important;
+}
+
 .welcome{
     position: absolute;
     display: inline-block;
@@ -531,7 +540,7 @@ header form{
 }
 
 .form-with-validation{
-    margin-left:280px;
+    margin-left:25%;
 }
 
 /* PLAYLIST */
@@ -542,11 +551,6 @@ header form{
     grid-template-columns: 350px auto;
     background-color: transparent;
     border: none;
-}
-
-.card img{
-    max-width:240px;
-    max-height:240px;
 }
 
 .cardData{
@@ -560,14 +564,16 @@ header form{
     width: fit-content;
     height: fit-content;
     left:0;
-    font-size: 2.25rem;
+    font-size: 3rem;
     line-height: 1.8;
     word-spacing: 1px;
-    color: rgb(29, 29, 29);
+    color: white;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
 }
 
 .cardData p{
-    margin: 50px 10px 0 0;
+    margin: 40px 10px 0 0;
     font-weight: 700;
     font-size: 1rem;
     font-family: 'Roboto', sans-serif;
@@ -576,9 +582,49 @@ header form{
 .card img{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 4%;
-    margin: 0 auto;
+    margin: 0 50px;
     height: 240px;
-    width: 85%;
+    width: 240px;
+}
+
+#imageForm {
+    background-color: #2bc5b4;
+    border-radius: 10px;
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 18%;
+    top: 30%;
+    width: 30%;
+    overflow: auto;
+    border: 2px solid darkblue;
+    padding-bottom: 20px;
+}
+
+#imageForm h2{
+    text-align: center;
+}
+
+#imageForm input{
+    text-align: center;
+    margin:5px auto 0 auto;
+    width:70%;
+}
+
+#imageForm button{
+    text-align: center;
+    margin: 5px auto;
+    background-color: #03ff03;
+}
+
+#submitremove{
+    background-color: transparent;
+    border:none;
+}
+
+#likeButton{
+    background-color: transparent;
+    border:none;
 }
 
 #no-song{

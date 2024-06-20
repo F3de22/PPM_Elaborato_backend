@@ -15,17 +15,23 @@
         {% for i in allsongs %}
             <div class="sameMovieCard">
                 <div class="container_songpost">
-                    <img src="/{{i.image}}" id="A_{{i.song_id}}"/>
+                    <img src="{{i.image.url}}" id="A_{{i.song_id}}"/>
                     <div class="overlay_songpost"></div>
                     <div class="play-btn_songpost">
-                        <a class="play-btn" data-song-url="/{{i.song}}" id="{{i.song_id}}" onclick="playSong(this)"><i class="fas fa-play-circle fa-2x"></i></a>
+                        <a class="play-btn" data-song-url="{{i.song.url}}" id="{{i.song_id}}" onclick="playSong(this)"><i class="fa-solid fa-circle-play"></i></a>
                     </div>
                 </div>
                 <div class="songpost_data">
-                    <h5 class="song-name" id="B_{{i.song_id}}"><a data-song-url="/{{i.song}}" id="{{i.song_id}}" onclick="playSong(this)">{{i.name}}</a></h5>
+                    <h5 class="song-name" id="B_{{i.song_id}}"><a data-song-url="{{i.song.url}}" id="{{i.song_id}}" onclick="playSong(this)">{{i.name}}</a></h5>
                     <p class="singer-name" id="C_{{i.song_id}}">{{i.artist}}</p>
                     {% if user.is_authenticated %}
-                        <a class="add-playlist-btn-allSongs" id="W_{{i.song_id}}" onclick="showDiv(this)" title="Add to Playlist"> <i class="fas fa-ellipsis-h"></i></a>
+                        <a class="add-playlist-btn-allSongs" id="{{i.song_id}}" onclick="showDiv(this)" title="Add to Playlist"> <i class="fas fa-ellipsis-h"></i></a>
+                        <form id="my_form" action="{% url 'music:likedsongs' %}" method="post">{% csrf_token %}
+                            <input type="hidden" id="helo" value="{{song.song_id}}">
+                            <button type="submit" id="submitremove" style="color: red; margin-top: 15px;">
+                                <a id="likeButton" class="fa-regular fa-heart fa-2x" data-song-id="{{i.song_id}}" style="color: black; margin-top:15px;" onclick="toggleHeart(this)"></a>
+                            </button>
+                        </form>
                     {% endif %}
                 </div>
             </div>
@@ -35,15 +41,51 @@
         </div>
 
         <div id="divId">
-            {% if my_playlists %}
-                <p style="margin: 5px; font-size: 0.75rem; font-weight: 700; color: rgb(138, 138, 138); text-align: left;">Add This Song To Your Playlist</p>
-            {% for playlist in my_playlists %}
-                <a class="left-panel-btn" id="D_{{playlist.playlist_id}}" onclick="sendPostRequestPlaylistSong(this)">{{playlist.playlist_name}}</a><br>
-            {% endfor %}
-            {% else %}
-                <p style="margin: 5px; font-size: 0.8rem; font-weight: 700; color: rgb(138, 138, 138); text-align: left;">You don't have any Playlist.</p>
-                <a class="create-p" onclick="$('#divId').css({display: 'none'}); document.getElementById('modal-wrapper-playlist').style.display='block'"><i class="fas fa-plus"></i> Create Playlist</a>
-            {% endif %}
-        </div>
+        {% if my_playlists %}
+            <label for="playlist_{{ song.song_id }}" style="margin: 5px; font-size: 0.75rem; font-weight: 700; color: rgb(138, 138, 138); text-align: left;">Add This Song To Your Playlist</label>
+            <form style="margin:0;" id="my_form" action="{% url 'music:addSongToPlaylist' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="song_id" id="song_id">
+                <select name="playlist_id" id="playlist_id">
+                {% for playlist in my_playlists %}
+                    <option value="{{playlist.playlist_id}}" class="left-panel-btn" style="margin:0;">{{playlist.playlist_name}}</option><br>
+                {% endfor %}
+                </select>
+                <button class="submitb" type="submit">Add to Playlist</button>
+            </form>
+        {% else %}
+            <p style="margin: 5px; font-size: 0.8rem; font-weight: 700; color: rgb(138, 138, 138); text-align: left;">You don't have any Playlist.</p>
+            <a class="create-p" onclick="$('#divId').css({display: 'none'}); document.getElementById('modal-wrapper-playlist').style.display='block'"><i class="fas fa-plus"></i> Create Playlist</a>
+        {% endif %}
+    </div>
 
+    <script>
+        document.getElementById('likeButton').addEventListener('click', function(e) {
+        e.preventDefault();
+        var currentState = document.getElementById('state').value;
+        var newState = currentState === 'liked' ? '' : 'liked';
+
+        // Aggiorna l'input hidden e il colore dell'icona
+        document.getElementById('state').value = newState;
+        if (newState === 'liked') {
+            document.getElementById('likeButton').classList.add('liked');
+        } else {
+            document.getElementById('likeButton').classList.remove('liked');
+        }
+
+        // Invia il form
+        document.getElementById('my_form').submit();
+    });
+
+        function toggleHeart(element) {
+            if (element.classList.contains('fa-regular')) {
+                element.classList.remove('fa-regular');
+                element.classList.add('fas', 'heart-red');
+            } else {
+                element.classList.remove('fas', 'heart-red');
+                element.classList.add('fa-regular');
+            }
+        }
+
+    </script>
 {% endblock %}

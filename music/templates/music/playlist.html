@@ -9,7 +9,10 @@
 {% block main-content %}
     <div id="body-center">
         <div class="card">
-            <img src="{{ playlistInfo.image.url }}" alt="No Image Found">
+            <div>
+                <img src="{% if playlistInfo.image %}{{ playlistInfo.image.url }}{% else %}/media/images/music-placeholder.png{% endif %}" alt="No Image Found">
+                <a id="modify_image_link" style=" color:white; display:block; margin-left: 100px; font-size:1rem" onclick="showImageForm()"><u>Modify Playlist Image</u></a>
+            </div>
             <div class="cardData">
                 <h1 id="B_{{playlistInfo.playlist_id}}">{{playlistInfo.playlist_name}}</h1>
                 <p>{{playlistInfo.plays}} Songs</p>
@@ -18,21 +21,29 @@
             </div>
         </div>
         <h2 id="your-song">Your Songs:</h2>
-        {% if songs %}
-            <div id="playlist">
-                {% for i in songs %}
-                    <div class="sameMovieCard" id="Div_{{i.song_id}}">
+        {% if playlistSongs %}
+            <div id="songlist">
+                {% for i in playlistSongs %}
+                    <div class="sameMovieCard">
                         <div class="container_songpost">
-                            <img src="{{i.image.url}}" id="A_{{i.song_id}}" />
+                            <img src="{{i.image.url}}" id="A_{{i.song_id}}"/>
                             <div class="overlay_songpost"></div>
                             <div class="play-btn_songpost">
-                                <li><a href="{{i.song.url}}" id="{{i.song_id}}"><i class="far fa-play-circle fa-2x"></i></a></li>
+                                <a class="play-btn" data-song-url="{{i.song.url}}" id="{{i.song_id}}" onclick="playSong(this)"><i class="fa-solid fa-circle-play"></i></a>
                             </div>
                         </div>
                         <div class="songpost_data">
-                            <h5 class="song-name" id="B_{{i.song_id}}">{{i.name}}</h5>
+                            <h5 class="song-name" id="B_{{i.song_id}}"><a data-song-url="{{i.song.url}}" id="{{i.song_id}}" onclick="playSong(this)">{{i.name}}</a></h5>
                             <p class="singer-name" id="C_{{i.song_id}}">{{i.artist}}</p>
-                            <p class="remove-song-from-playlist-btn" id="F_{{i.song_id}}" onclick="removeSongFromPlaylist(this)" title="Remove from Playlist"><i class="far fa-times-circle"></i></p>
+                            <i id="likeButton" class="fa-regular fa-heart fa-2x" data-song-id="{{i.song_id}}" style="color: black; margin-top:15px; width: fit-content" onclick="toggleHeart(this)"></i>
+                            <form action="{% url 'music:delete_song_from_playlist' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="song_id" value="{{ i.song_id }}">
+                                <input type="hidden" name="playlist_id" value="{{ playlistInfo.playlist_id }}">
+                                <button type="submit" id="submitremove" style="color: red; margin-top: 15px;">
+                                    <i class="fa-solid fa-ban fa-2x"></i>
+                                </button>
+                            </form>
                         </div>
                     </div>
                 {% endfor %}
@@ -68,6 +79,15 @@
             <p id="no-song">ADD SOME SONGS IN YOUR PLAYLIST TO GET RECOMMENDATIONS</p>
         </div>
         {% endif %}
+
+        <div id="imageForm" style="display: none;">
+            <form action="{% url 'music:modify_playlist_image' playlistInfo.playlist_id %}" method="POST" enctype="multipart/form-data">
+                <h2>Change Playlist Image</h2>
+                {% csrf_token %}
+                <input type="file" name="image" accept="image/*" required>
+                <button type="submit">Upload Image</button>
+            </form>
+        </div>
 
         <div>
             <form action="{% url 'music:deletePlaylist' %}" method="POST">{% csrf_token %}
@@ -110,5 +130,27 @@
                 "success": showAlert('success', "Succesfully Removed"),
             })
         }
+
+        function showImageForm() {
+            var form = document.getElementById('imageForm');
+            form.style.display = 'block';
+            document.addEventListener('mouseup', function(event) {
+                var container = document.getElementById('imageForm');
+                if (!container.contains(event.target)) {
+                    container.style.display = 'none';
+            }
+            }, { once: true });
+        }
+
+        function toggleHeart(element) {
+            if (element.classList.contains('fa-regular')) {
+                element.classList.remove('fa-regular');
+                element.classList.add('fas', 'heart-red');
+            } else {
+                element.classList.remove('fas', 'heart-red');
+                element.classList.add('fa-regular');
+            }
+        }
+
     </script>
 {% endblock %}

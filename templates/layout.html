@@ -16,7 +16,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />  
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <script src="https://kit.fontawesome.com/e010442325.js" crossorigin="anonymous"></script>
+    {% block head %}
+    {% endblock %}
 </head>
 <body>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
@@ -33,11 +36,13 @@
                     <img src="/media/images/headphones-2-48.png" width="30px">LIBRARY
                 </button>
                 <ul class="dropdown-menu" data-bs-theme="dark">
-                    <li><a class="dropdown-item" href="#">YOUR PLAYLISTS</a></li>
                     <li><a class="dropdown-item" href="{% url 'music:allsongs' %}">ALL SONGS</a></li>
+                    <li><a class="dropdown-item" href="{% url 'homepage' %}#play-tit">YOUR PLAYLISTS</a></li>
+                    <li><a class="dropdown-item" href="{% url 'music:likedsongs' %}">LIKED SONGS</a></li>
                     <li><a class="dropdown-item" href="#">DISCOVER(recommendations)</a></li>
                     <li class="dropdown-divider"></li>
                     <li><a class="dropdown-item" onclick="document.getElementById('modal-wrapper-playlist').style.display='block'">+ CREATE A NEW PLAYLIST</a></li>
+                    <li><a class="dropdown-item" onclick="document.getElementById('modal-wrapper-song').style.display='block'">+ ADD A NEW SONG TO DB</a></li>
                 </ul>
         {% else %}
             <button class="btn btn-primary dropdown-toggle dropdown" id="librarybtn">
@@ -49,7 +54,7 @@
             <h1><a href="{% url 'homepage' %}">PPMusic</a></h1>
             <form class="d-flex" role="search" autocomplete="off" method="POST" action="{% url 'music:search_results' %}"> 
                 {% csrf_token %}
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="data">
+                <input class="form-control me-2" type="search" placeholder="Search Songs or Playlists" aria-label="Search" name="data" required>
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
             {% if user.is_authenticated %}
@@ -73,6 +78,21 @@
                 <input type="file" name="image" accept="image/*">
                 <br>
                 <input id="submitb" type='submit' value="Create Playlist">
+            </div>
+        </form>
+    </div>
+    
+    <div id='modal-wrapper-song' class='modal'>
+        <form class='modal-content' action='{% url 'music:add_song' %}' method="POST" enctype="multipart/form-data">{% csrf_token %}
+            <h2>Add a new Song to DataBase</h2>
+            <div class='container'>
+                <input type="text" name="name" placeholder="Song Name" required>
+                <input type="text" name="artist" placeholder="Artist" required>
+                <p style="margin: 0">Add music file:</p><input type="file" name="song" accept="audio/*" required>
+                <br>
+                <p style="margin: 0">Add image:</p><input type="file" name="image" accept="image/*">
+                <br>
+                <input id="submitb" type='submit' value="Add Song">
             </div>
         </form>
     </div>
@@ -102,15 +122,23 @@
         <script>
             function new_playlist(){
                 document.getElementById("modal-wrapper-playlist").style.display='block'}
-
-
+            
+            function new_song(){
+                document.getElementById("modal-wrapper-song").style.display='block'}
+            
+            var modal_song = document.getElementById('modal-wrapper-song');
             var modal_playlist = document.getElementById('modal-wrapper-playlist');
-            window.onclick = function (event) {
-            if (event.target == modal_playlist) {
-                    modal_playlist.style.display = 'none';
-                }
-            }
 
+            window.onclick = function (event) {
+                if (event.target == modal_song) {
+                modal_song.style.display = 'none';
+            }
+            if (event.target == modal_playlist) {
+                modal_playlist.style.display = 'none';
+            }
+        }
+
+            
             var play = true;
             var myAudio = document.getElementById("audioPlayer");
             function onKeyDown(event) {
@@ -151,10 +179,10 @@
 
 
             
-        var song_id_for_playlist;
+        var song_id_for_playlist = document.getElementById("song_id");
         function showDiv(el) {
             var div = $("#divId");
-            song_id_for_playlist = $(el).data('song-id');
+            song_id_for_playlist.value = el.id;
             div.css({
                 top: event.pageY,
                 left: event.pageX,
@@ -174,20 +202,31 @@
             // alert("Song ID: "+song_id_for_playlist+" | Playlist ID: "+el.id);
             var data = song_id_for_playlist + "|" + el.id;
             $.ajax({
-                "url": "/addSongToPlaylist",
-                "type": "post",
+                "url": "{% url 'music:addSongToPlaylist' %}",
+                "type": "POST",
                 "data": { 'data': data, 'csrfmiddlewaretoken': '{{ csrf_token }}' },
                 success: function(response) {
                 alert("Song added to your playlist");
                 location.reload();},
-            error: function(xhr, status, error) {
-            alert("Failed to add song to playlist.");}
-            })
+                error: function(xhr, status, error) {
+                alert("Failed to add song to playlist.");}
+                });
             var div = $("#divId");
             div.css({
                 transition: "0.3s",
                 display: "none"
             });
+            
+            
+        function toggleHeart(element) {
+            if (element.classList.contains('fa-regular')) {
+                element.classList.remove('fa-regular');
+                element.classList.add('fas', 'heart-red');
+            } else {
+                element.classList.remove('fas', 'heart-red');
+                element.classList.add('fa-regular');
+            }
+        }
         }
         </script>
         {% block javascript %}

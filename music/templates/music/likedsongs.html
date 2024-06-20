@@ -2,23 +2,23 @@
 
 
 {% block title %}
-    {{ playlistInfo.name }}
+    Liked Songs
 {% endblock %}
 
+{% block head %}
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+{% endblock %}
 
 {% block main-content %}
-    <div class="playlist_header">
-        <img src="../../../media/images/heart-small.png" alt="liked songs image">
-    </div>
 
     <div id="body-center">
         <div class="card">
-            <img src="/media/images/likedsongs.jpg" width="250px" height="250px">
+            <img  style="background-color: #bc0802; border: 2px solid black" src="/media/images/heart-small.png" width="250px" height="250px">
             <div class="cardData">
-                <h1>LIKED SONGS</h1>
+                <h1 style="background-color: #bc0802; border-radius: 10px; padding:0 10px">LIKED SONGS <i class="fa-regular fa-heart"></i></h1>
+                <p>{{likedSongs|length}} liked Songs:</p>
                 <br>
-                <a href="/allSongs" id="add_song_btn"><i class="fas fa-plus"></i>
-                    Add Song</a>
+                <a href="{% url 'music:allsongs' %}" id="add_song_btn"><i class="fas fa-plus"></i>Add Song</a>
             </div>
         </div>
 
@@ -28,7 +28,7 @@
             {% for i in likedSongs %}
             <div class="sameMovieCard" id="Div_{{i.song_id}}">
                 <div class="container_songpost">
-                    <img src="{{i.image.url}}" id="A_{{i.song_id}}" />
+                    <img src="{{i.image.url}}" id="A_{{i.song_id}}"/>
                     <div class="overlay_songpost"></div>
                     <div class="play-btn_songpost">
                         <a href="{{i.song.url}}" id="{{i.song_id}}"><i class="far fa-play-circle fa-2x"></i></a>
@@ -46,7 +46,7 @@
             {% endfor %}
         </div>
         {% else %}
-        <h2 class="no-songs">Currently you have no Liked Songs</h2>
+        <h2 style="margin-bottom: 40px">Currently you have 0 Liked Songs</h2>
         {% endif %}
 
 
@@ -71,8 +71,8 @@
             {% endfor %}
         </div>
         {% else %}
-        <div style="margin: 40px auto">
-            <p id="add-to-recommendations">ADD SOME SONGS IN YOUR PLAYLIST TO GET RECOMMENDATIONS</p>
+        <div style="margin: 20px auto">
+            <p id="add-to-recommendations" style="color: white;">ADD SOME SONGS IN YOUR PLAYLIST TO GET RECOMMENDATIONS</p>
         </div>
         {% endif %}
 

@@ -12,7 +12,10 @@ urlpatterns = [
     path('allsongs/', views.all_songs, name="allsongs"),
     path('deletePlaylist', views.deletePlaylist, name="deletePlaylist"),
     path('addSongToPlaylist', views.addSongToPlaylist, name="addSongToPlaylist"),
+    path('modify_playlist_image/<int:playlist_id>', views.modify_playlist_image, name='modify_playlist_image'),
     path('likedsongs/', views.likesong, name="likedsongs"),
+    path('add-song', views.add_song, name='add_song'),
+    path('delete_song_from_playlist', views.delete_song_from_playlist, name="delete_song_from_playlist"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

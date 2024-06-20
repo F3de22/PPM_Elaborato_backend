@@ -1,5 +1,5 @@
 {% extends 'layout.html' %}
-
+{% load static %}
 
 {% block title %}
     PPMusic
@@ -20,20 +20,20 @@
                     <section class="main_song">
                         <div class="song-card">
                             <div class="containera">
-                                <img src="{{i.image}}" id="A_{{i.song_id}}" alt="song cover">
+                                <img src="{{ i.image.url }}" id="A_{{i.song_id}}" alt="song cover">
                                 <div class="overlaya"></div>
                                 <div>
-                                    <a class="play-btn" data-song-url="/{{i.song}}" id="{{i.song_id}}" onclick="playSong(this)"><i class="fas fa-play-circle fa-2x"></i></a>
+                                    <a class="play-btn" data-song-url="{{i.song.url}}" id="{{i.song_id}}" onclick="playSong(this)"><i class="fas fa-play-circle fa-2x"></i></a>
                                     {% if user.is_authenticated %}
                                         <div class="add-playlist-btn">
-                                            <a id="W_{{i.song_id}}" title="Add to Playlist" onclick="showDiv(this)"><i class="fas fa-ellipsis-h"></i></a>
+                                            <a id="{{i.song_id}}" title="Add to Playlist" onclick="showDiv(this)"><i class="fas fa-ellipsis-h"></i></a>
                                         </div>
                                     {% endif %}
                                 </div>
                             </div>
                         </div>
                         <div>
-                            <p class="songName" id="B_{{i.song_id}}"><a data-song-url="/{{i.song}}" id="{{i.song_id}}" onclick="playSong(this)">{{i.name}}</a></p>
+                            <p class="songName" id="B_{{i.song_id}}"><a data-song-url="{{i.song.url}}" id="{{i.song_id}}" onclick="playSong(this)">{{i.name}}</a></p>
                             <p class="artistName" id="C_{{i.song_id}}">{{i.artist}}</p>
                         </div>
                     </section>
@@ -64,28 +64,39 @@
         </div>
     </div> -->
 
-
-    <h2 class="home-tit">Your Paylists</h2>
+    {% if user.is_authenticated %}
+    <h2 id="play-tit" class="home-tit">Your Paylists</h2>
     {% if my_playlists %}
             <p style="margin-left: 20px">You have {{ my_playlists|length }} playlists:</p>
         {% else %}
-        <p style="margin-left: 20px">No playlists found. if you wanto to create a playlist <a onclick="document.getElementById('modal-wrapper-playlist').style.display='block'"><u>click here</u></a></p>
+        <p style="margin-left: 20px">No playlists found. if you want to create a playlist <a onclick="document.getElementById('modal-wrapper-playlist').style.display='block'"><u>click here</u></a></p>
         {% endif %}
     <div class="main_content">
         {% for playlist in my_playlists %}
             <section class="main_song">
-                <a href="{% url 'music:playlist' playlist.playlist_id %}"><img src="{{ playlist.image.url}}" alt="playlist image"></a>
+                <a href="{% url 'music:playlist' playlist.playlist_id %}"><img style="border-radius: 4%" src="{% if playlist.image %}{{ playlist.image.url }}{% else %}/media/images/music-placeholder.png{% endif %}" alt="playlist image"></a>
                 <a class="playlist-title" href="{% url 'music:playlist' playlist.playlist_id %}">{{ playlist.playlist_name }}</a>
             </section>
         {% endfor %}
     </div>
+    {% else %}
+        <h2 id="play-tit" class="home-tit">Your Paylists</h2>
+        <p style="margin-left: 20px">If you want to have your playlists <a href="{% url 'users:login' %}"><u>LOGIN HERE</u></a></p>
+    {% endif %}
     
     <div id="divId">
         {% if my_playlists %}
-            <p style="margin: 5px; font-size: 0.75rem; font-weight: 700; color: rgb(138, 138, 138); text-align: left;">Add This Song To Your Playlist</p>
-        {% for playlist in my_playlists %}
-            <a class="left-panel-btn" id="D_{{playlist.playlist_id}}" onclick="sendPostRequestPlaylistSong(this)">{{playlist.playlist_name}}</a><br>
-        {% endfor %}
+            <label for="playlist_{{ song.song_id }}" style="margin: 5px; font-size: 0.75rem; font-weight: 700; color: rgb(138, 138, 138); text-align: left;">Add This Song To Your Playlist</label>
+            <form style="margin:0;" id="my_form" action="{% url 'music:addSongToPlaylist' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="song_id" id="song_id">
+                <select name="playlist_id" id="playlist_id">
+                {% for playlist in my_playlists %}
+                    <option value="{{playlist.playlist_id}}" class="left-panel-btn" style="margin:0;">{{playlist.playlist_name}}</option><br>
+                {% endfor %}
+                </select>
+                <button class="submitb" type="submit">Add to Playlist</button>
+            </form>
         {% else %}
             <p style="margin: 5px; font-size: 0.8rem; font-weight: 700; color: rgb(138, 138, 138); text-align: left;">You don't have any Playlist.</p>
             <a class="create-p" onclick="$('#divId').css({display: 'none'}); document.getElementById('modal-wrapper-playlist').style.display='block'"><i class="fas fa-plus"></i> Create Playlist</a>
