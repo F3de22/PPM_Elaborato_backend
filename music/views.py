@@ -48,10 +48,8 @@ def all_songs(request):
     else:
         allsongs = Song.objects.all()
     genres = Song.GENRE_CHOICES
-
-    all_liked = request.user.liked_songs.all()
-
     if user.is_authenticated:
+        all_liked = request.user.liked_songs.all()
         my_playlists = Playlist.objects.filter(user=user)
         return render(request, 'music/allsongs.html', {'allsongs': allsongs, 'my_playlists': my_playlists, 'genres': genres, 'all_liked': all_liked})
     else:
@@ -61,16 +59,19 @@ def all_songs(request):
 def search_results(request):
     user = request.user
     myPlaylists = []
-    all_liked = request.user.liked_songs.all()
     if user.is_authenticated:
         myPlaylists = list(Playlist.objects.filter(user=user))
+        all_liked = request.user.liked_songs.all()
     if request.method == "POST":
         data = request.POST["data"]
         songsFound = Song.objects.filter(name__icontains=data)
         playlistsFound = Playlist.objects.filter(playlist_name__icontains=data)
         songsFound = list(songsFound)[:6]
-        return render(request, 'music/searchResults.html',
-                      {'songsFound': songsFound, 'playlistsFound': playlistsFound, 'all_liked': all_liked, 'myPlaylists': myPlaylists})
+        if not user.is_authenticated:
+            return render(request, 'music/searchResults.html',{'songsFound': songsFound})
+        else:
+            return render(request, 'music/searchResults.html',
+                          {'songsFound': songsFound, 'playlistsFound': playlistsFound, 'all_liked': all_liked, 'myPlaylists': myPlaylists})
     else:
         return redirect('/')
 
