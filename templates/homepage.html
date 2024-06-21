@@ -41,28 +41,6 @@
             {% endfor %}
         </div>
     </div>
-    
-    <!-- <div id="Recommends" style="padding: 5px">
-        <h2>Recommended</h2>
-        <div class="main-carousel" data-flickity='{"groupCells":5 , "contain": true, "pageDots": false, "draggable": false, "cellAlign": "left", "lazyLoad": true}'>
-            {% for i in Recommends %}
-                <div class="carousel-cell">
-                    <section class="main_song">
-                        <div class="containers">
-                            <img src="{{i.album.images.0.url}}" id="A_{{i.id}}" alt="song cover">
-                            <div class="overlaya"></div>
-                            <div>
-                                <a class="play-btn-spotify-songs" data-song-url="{{i.song.url}}" id="{{i.id}}" onclick="playSong(this)"><i class="fas fa-play-circle"></i></a>
-                            </div>
-                        </div>
-                        <div>
-                            <p class="songName" id="B_{{i.id}}">{{i.name}}</p>
-                        </div>
-                    </section>
-                </div>
-            {% endfor %}
-        </div>
-    </div> -->
 
     {% if user.is_authenticated %}
     <h2 id="play-tit" class="home-tit">Your Paylists</h2>

@@ -1,9 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse
-from .models import Song, Playlist, LikedSong
-from django.db.models import Case, When
-from django.http import JsonResponse
-import os
+from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
+from .models import Song, Playlist
 
 
 def playlist(request, playlist_id):
@@ -44,11 +43,23 @@ def createPlaylist(request):
 def all_songs(request):
     allsongs = Song.objects.all().order_by('?')
     user = request.user
+
+    genres = Song.objects.values_list('genre', flat=True).distinct()
+
     if user.is_authenticated:
         my_playlists = Playlist.objects.filter(user=user)
-        return render(request, 'music/allsongs.html', {'allsongs': allsongs, 'my_playlists': my_playlists})
+        context = {
+            'songs': allsongs,
+            'my_playlists': my_playlists,
+            'genres': genres,
+        }
+        return render(request, 'music/allsongs.html', context)
     else:
-        return render(request, 'music/allsongs.html', {'allsongs': allsongs})
+        context = {
+            'songs': allsongs,
+            'genres': genres,
+        }
+        return render(request, 'music/allsongs.html', context)
 
 
 def search_results(request):
@@ -122,18 +133,25 @@ def add_song(request):
         return redirect("homepage")
 
 
+def likedsongs(request):
+    user = request.user
+    if user.is_authenticated:
+        all_liked = request.user.liked_songs.all()
+        return render(request, 'music/likedsongs.html', {'all_liked': all_liked})
+
+
 def likesong(request):
     user = request.user
     if user.is_authenticated:
         if request.method == "POST":
             song_id = request.POST.get('song_id')
             state = request.POST.get('state')
-            favourites = LikedSong.objects.filter(user=user)
-            song = Song.objects.get(song_id=song_id)
+            song = get_object_or_404(Song, song_id=song_id)
             if state == 'liked':
-                if song in favourites.songs.all():
-                    favourites.delete(song)
+                if song.liked_by_users.filter(id=user.id).exists():
+                    song.liked_by_users.remove(user)
             else:
-                if song not in favourites.songs.all():
-                    favourites.add(song)
-        return redirect('music:likedsongs')
+                user.liked_songs.add(song)
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+

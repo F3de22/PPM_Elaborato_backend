@@ -6,6 +6,16 @@
 
 {% block main-content %}
     <h2 style="text-align: center; margin: 10px 0; font-size: 3rem">All Songs</h2>
+    <form style="right:20px; top: 120px; position: absolute" method="GET">
+        <label for="genre">filter by genre:</label>
+        <select name="genre" id="genre">
+            <option value="">Tutti i generi</option>
+            {% for genre in genres %}
+                <option value="{{ genre }}">{{ genre }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Filtra</button>
+    </form>
     {% if allsongs %}
         <p style="margin-left: 25px">There are {{ allsongs|length }} songs:</p>
     {% else %}
@@ -26,10 +36,12 @@
                     <p class="singer-name" id="C_{{i.song_id}}">{{i.artist}}</p>
                     {% if user.is_authenticated %}
                         <a class="add-playlist-btn-allSongs" id="{{i.song_id}}" onclick="showDiv(this)" title="Add to Playlist"> <i class="fas fa-ellipsis-h"></i></a>
-                        <form id="my_form" action="{% url 'music:likedsongs' %}" method="post">{% csrf_token %}
-                            <input type="hidden" id="helo" value="{{song.song_id}}">
+                        <form id="my_form" action="{% url 'music:likesong' %}" method="post" style="margin:0">
+                            {% csrf_token %}
+                            <input type="hidden" id="helo" name="song_id" value="{{i.song_id}}">
+                            <input type="hidden" id="state" name="state" value="{{ state }}">
                             <button type="submit" id="submitremove" style="color: red; margin-top: 15px;">
-                                <a id="likeButton" class="fa-regular fa-heart fa-2x" data-song-id="{{i.song_id}}" style="color: black; margin-top:15px;" onclick="toggleHeart(this)"></a>
+                                <a id="likeButton" class="fa-regular fa-heart fa-2x {% if state == 'liked' %}liked{% endif %}" data-song-id="{{i.song_id}}" style="color: black; margin-bottom:20px;" onclick="toggleHeart(this)"></a>
                             </button>
                         </form>
                     {% endif %}
@@ -62,20 +74,19 @@
     <script>
         document.getElementById('likeButton').addEventListener('click', function(e) {
         e.preventDefault();
-        var currentState = document.getElementById('state').value;
+        var stateElement = document.getElementById('state').value;
+        var currentState = stateElement.value;
         var newState = currentState === 'liked' ? '' : 'liked';
 
-        // Aggiorna l'input hidden e il colore dell'icona
-        document.getElementById('state').value = newState;
+        stateElement.value = newState;
         if (newState === 'liked') {
             document.getElementById('likeButton').classList.add('liked');
         } else {
             document.getElementById('likeButton').classList.remove('liked');
         }
-
-        // Invia il form
         document.getElementById('my_form').submit();
     });
+
 
         function toggleHeart(element) {
             if (element.classList.contains('fa-regular')) {

@@ -16,66 +16,42 @@
             <img  style="background-color: #bc0802; border: 2px solid black" src="/media/images/heart-small.png" width="250px" height="250px">
             <div class="cardData">
                 <h1 style="background-color: #bc0802; border-radius: 10px; padding:0 10px">LIKED SONGS <i class="fa-regular fa-heart"></i></h1>
-                <p>{{likedSongs|length}} liked Songs:</p>
+                <p>{{all_liked|length}} liked Songs:</p>
                 <br>
                 <a href="{% url 'music:allsongs' %}" id="add_song_btn"><i class="fas fa-plus"></i>Add Song</a>
             </div>
         </div>
 
-        {% if likedSongs %}
-        <h2 id="your-song">There are {{ likedSongs|length }} liked songs:</h2>
-        <div id="playlist">
-            {% for i in likedSongs %}
-            <div class="sameMovieCard" id="Div_{{i.song_id}}">
-                <div class="container_songpost">
-                    <img src="{{i.image.url}}" id="A_{{i.song_id}}"/>
-                    <div class="overlay_songpost"></div>
-                    <div class="play-btn_songpost">
-                        <a href="{{i.song.url}}" id="{{i.song_id}}"><i class="far fa-play-circle fa-2x"></i></a>
+        {% if all_liked %}
+        <h2 id="your-song">There are {{ all_liked|length }} liked songs:</h2>
+        <div id="songlist">
+            {% for i in all_liked %}
+                <div class="sameMovieCard">
+                    <div class="container_songpost">
+                        <img src="{{i.image.url}}" id="A_{{i.song_id}}"/>
+                        <div class="overlay_songpost"></div>
+                        <div class="play-btn_songpost">
+                            <a class="play-btn" data-song-url="{{i.song.url}}" id="{{i.song_id}}" onclick="playSong(this)"><i class="fa-solid fa-circle-play"></i></a>
+                        </div>
+                    </div>
+                    <div class="songpost_data">
+                        <h5 class="song-name" id="B_{{i.song_id}}"><a data-song-url="{{i.song.url}}" id="{{i.song_id}}" onclick="playSong(this)">{{i.name}}</a></h5>
+                        <p class="singer-name" id="C_{{i.song_id}}">{{i.artist}}</p>
+                        <form id="delform" action="{% url 'music:likesong' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="song_id" value="{{ i.song_id }}">
+                            <input type="hidden" id="state" name="state" value="{{ state }}">
+                            <button type="submit" id="submitremove" style="color: red; margin-top: 15px; margin-left: 200px">
+                                <i style="margin-top: 10px" class="fa-solid fa-ban"></i>
+                            </button>
+                        </form>
                     </div>
                 </div>
-                <div class="songpost_data">
-                    <h5 class="song-name" id="B_{{i.song_id}}">
-                        {{i.name}}</h5>
-                    <p class="singer-name">{{i.singer1}}</p>
-                    <p class="movie-name" id="C_{{i.song_id}}">
-                        {{i.artist}}</p>
-                    <p class="remove-song-from-playlist-btn" id="F_{{i.song_id}}" onclick="removeSongFromPlaylist(this)" title="Remove from Playlist"><i class="far fa-times-circle"></i></p>
-                </div>
-            </div>
             {% endfor %}
         </div>
         {% else %}
         <h2 style="margin-bottom: 40px">Currently you have 0 Liked Songs</h2>
         {% endif %}
-
-
-        <h2 id="reccommended-tit">Recommended Artists</h2>
-        {% if recommendedSingers %}
-        <div class="main-carousel" data-flickity='{"groupCells":3 , "contain": true, "draggable": false, "pageDots": false}'>
-            {% for i in recommendedSingers %}
-            <div class="carousel-cell">
-                <div class="song-card">
-                    <div class="containera">
-                        <img style="border-radius: 100%;" src="{{i.image.url}}" alt=""/>
-                        <div style="border-radius: 100%;" class="overlaya"></div>
-                        <div class="play-btn">
-                            <a href="/album/{{i.singer_id}}"> <i class="fas fa-play-circle"></i></a>
-                        </div>
-                    </div>
-                    <div>
-                        <p class="songName">{{i.name}}</p>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-        {% else %}
-        <div style="margin: 20px auto">
-            <p id="add-to-recommendations" style="color: white;">ADD SOME SONGS IN YOUR PLAYLIST TO GET RECOMMENDATIONS</p>
-        </div>
-        {% endif %}
-
 
         <div id="footer"></div>
     </div>
@@ -97,19 +73,13 @@
         </div>
     </div>      -->
 
-
     <script>
-        function removeSongFromPlaylist(el) {
-            var playlistId = "{{playlistInfo.playlist_id}}";
-            var song_id = el.id;
-            song_id = song_id.slice(2);
-            $("#Div_"+song_id).fadeOut('slow')
-            $.ajax({
-                "url": "/myPlaylist/"+playlistId,
-                "type": "post",
-                "data": { 'music_id' : song_id, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
-                "success": showAlert('success', "Succesfully Removed"),
-            })
-        }
+    document.getElementById('likeButton').addEventListener('click', function(e) {
+        e.preventDefault();
+        var currentState = document.getElementById('state').value;
+        var newState = currentState === 'liked' ? '' : 'liked';
+        document.getElementById('state').value = newState;
+
+        document.getElementById('like_form').submit();})
     </script>
 {% endblock %}

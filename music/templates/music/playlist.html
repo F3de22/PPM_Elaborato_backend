@@ -35,13 +35,12 @@
                         <div class="songpost_data">
                             <h5 class="song-name" id="B_{{i.song_id}}"><a data-song-url="{{i.song.url}}" id="{{i.song_id}}" onclick="playSong(this)">{{i.name}}</a></h5>
                             <p class="singer-name" id="C_{{i.song_id}}">{{i.artist}}</p>
-                            <i id="likeButton" class="fa-regular fa-heart fa-2x" data-song-id="{{i.song_id}}" style="color: black; margin-top:15px; width: fit-content" onclick="toggleHeart(this)"></i>
                             <form action="{% url 'music:delete_song_from_playlist' %}" method="post">
                                 {% csrf_token %}
                                 <input type="hidden" name="song_id" value="{{ i.song_id }}">
                                 <input type="hidden" name="playlist_id" value="{{ playlistInfo.playlist_id }}">
-                                <button type="submit" id="submitremove" style="color: red; margin-top: 15px;">
-                                    <i class="fa-solid fa-ban fa-2x"></i>
+                                <button type="submit" id="submitremove" style="color: red; margin-top: 15px; margin-left: 200px">
+                                    <i style="margin-top:10px" class="fa-solid fa-ban"></i>
                                 </button>
                             </form>
                         </div>
@@ -52,33 +51,6 @@
             <h2 id="no-song">Currently No Songs Added in Your Playlist "{{ playlistInfo.playlist_name }}"</h2>
         {% endif %}
 
-
-        <h3 id="recommended-tit">Recommended Artists</h3>
-
-        {% if recommendedSingers %}
-        <div class="main-carousel" data-flickity='{"groupCells":3 , "contain": true, "draggable": false, "pageDots": false}'>
-            {% for i in recommendedSingers %}
-            <div class="carousel-cell">
-                <div class="song-card">
-                    <div class="containera">
-                        <img style="border-radius: 100%;" src="{{i.image.url}}" alt=""/>
-                        <div style="border-radius: 100%;" class="overlaya"></div>
-                        <div class="play-btn"><a href="/album/{{i.singer_id}}"> <i class="fas fa-play-circle"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div>
-                        <p class="namesong">{{i.name}}</p>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-        {% else %}
-        <div>
-            <p id="no-song">ADD SOME SONGS IN YOUR PLAYLIST TO GET RECOMMENDATIONS</p>
-        </div>
-        {% endif %}
 
         <div id="imageForm" style="display: none;">
             <form action="{% url 'music:modify_playlist_image' playlistInfo.playlist_id %}" method="POST" enctype="multipart/form-data">
@@ -98,23 +70,6 @@
 
         <div id="footer"></div>
     </div>
-
-    <!--
-    <div id="audio_main" class="audio-decs">
-        <div class="audio-data">
-            <img id="audio-img" style="height: 53px; width: 64%; border-radius: 4%; margin: 3px 0px 3px 30px;"
-                src="/media/images/music-placeholder.png" alt="Image here">
-            <div style="margin: auto 6px;">
-                <h4 id="audio-song">Song Name</h4>
-                <p id="audio-movie" style="color: rgb(151, 151, 151);">Album Name</p>
-            </div>
-        </div>
-        <div style="margin: auto 0;">
-            <audio preload="none" controls id="audioPlayer">
-                <source />
-            </audio>
-        </div>
-    </div>      -->
 
 
     <script>
@@ -140,16 +95,6 @@
                     container.style.display = 'none';
             }
             }, { once: true });
-        }
-
-        function toggleHeart(element) {
-            if (element.classList.contains('fa-regular')) {
-                element.classList.remove('fa-regular');
-                element.classList.add('fas', 'heart-red');
-            } else {
-                element.classList.remove('fas', 'heart-red');
-                element.classList.add('fa-regular');
-            }
         }
 
     </script>

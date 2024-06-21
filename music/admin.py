@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Song, Playlist, LikedSong
+from .models import Song, Playlist
 # Register your models here:
 
 
@@ -15,4 +15,3 @@ class Meta:
 
 admin.site.register(Song)
 admin.site.register(Playlist)
-admin.site.register(LikedSong)
