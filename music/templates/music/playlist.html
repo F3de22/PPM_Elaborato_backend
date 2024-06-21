@@ -73,18 +73,6 @@
 
 
     <script>
-        function removeSongFromPlaylist(el) {
-            var playlistId = "{{playlistInfo.playlist_id}}";
-            var song_id = el.id;
-            song_id = song_id.slice(2);
-            $("#Div_"+song_id).fadeOut('slow')
-            $.ajax({
-                "url": "/myPlaylist/"+playlistId,
-                "type": "post",
-                "data": { 'music_id' : song_id, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
-                "success": showAlert('success', "Succesfully Removed"),
-            })
-        }
 
         function showImageForm() {
             var form = document.getElementById('imageForm');

@@ -40,8 +40,8 @@
                         <form id="delform" action="{% url 'music:likesong' %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="song_id" value="{{ i.song_id }}">
-                            <input type="hidden" id="state" name="state" value="{{ state }}">
-                            <button type="submit" id="submitremove" style="color: red; margin-top: 15px; margin-left: 200px">
+                            <input type="hidden" id="state" name="state" value="liked">
+                            <button type="submit" id="submitremove" style="color: red; margin-top: 15px; margin-left: 200px" onclick="removeSongFromLiked(this)">
                                 <i style="margin-top: 10px" class="fa-solid fa-ban"></i>
                             </button>
                         </form>
@@ -54,32 +54,25 @@
         {% endif %}
 
         <div id="footer"></div>
+    <br>
+    <br>
+    <br>
     </div>
-
-    <!--
-    <div id="audio_main" class="audio-decs">
-        <div class="audio-data">
-            <img id="audio-img" style="height: 53px; width: 64%; border-radius: 4%; margin: 3px 0px 3px 30px;"
-                src="/media/images/music-placeholder.png" alt="Image here">
-            <div style="margin: auto 6px;">
-                <h4 id="audio-song">Song Name</h4>
-                <p id="audio-movie" style="color: rgb(151, 151, 151);">Album Name</p>
-            </div>
-        </div>
-        <div style="margin: auto 0;">
-            <audio preload="none" controls id="audioPlayer">
-                <source />
-            </audio>
-        </div>
-    </div>      -->
 
     <script>
     document.getElementById('likeButton').addEventListener('click', function(e) {
-        e.preventDefault();
         var currentState = document.getElementById('state').value;
-        var newState = currentState === 'liked' ? '' : 'liked';
-        document.getElementById('state').value = newState;
+        if(currentState == 'liked')
+            currentState = 'nolike';
+        else
+            currentState = 'liked';
+        document.getElementById('state').value = currentState;
+        $.ajax({
+                "url": "/likedsongs/",
+                "type": "post",
+                "data": { 'song_id' : song_id, 'csrfmiddlewaretoken': '{{ csrf_token }}', 'state' : currentState},
+        })
+        document.getElementById('submitremove').submit();})
 
-        document.getElementById('like_form').submit();})
     </script>
 {% endblock %}

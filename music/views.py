@@ -41,30 +41,27 @@ def createPlaylist(request):
 
 
 def all_songs(request):
-    allsongs = Song.objects.all().order_by('?')
     user = request.user
+    genre = request.GET.get('genre')
+    if genre:
+        allsongs = Song.objects.filter(genre=genre)
+    else:
+        allsongs = Song.objects.all()
+    genres = Song.GENRE_CHOICES
 
-    genres = Song.objects.values_list('genre', flat=True).distinct()
+    all_liked = request.user.liked_songs.all()
 
     if user.is_authenticated:
         my_playlists = Playlist.objects.filter(user=user)
-        context = {
-            'songs': allsongs,
-            'my_playlists': my_playlists,
-            'genres': genres,
-        }
-        return render(request, 'music/allsongs.html', context)
+        return render(request, 'music/allsongs.html', {'allsongs': allsongs, 'my_playlists': my_playlists, 'genres': genres, 'all_liked': all_liked})
     else:
-        context = {
-            'songs': allsongs,
-            'genres': genres,
-        }
-        return render(request, 'music/allsongs.html', context)
+        return render(request, 'music/allsongs.html', {'allsongs': allsongs, 'genres': genres})
 
 
 def search_results(request):
     user = request.user
     myPlaylists = []
+    all_liked = request.user.liked_songs.all()
     if user.is_authenticated:
         myPlaylists = list(Playlist.objects.filter(user=user))
     if request.method == "POST":
@@ -73,9 +70,9 @@ def search_results(request):
         playlistsFound = Playlist.objects.filter(playlist_name__icontains=data)
         songsFound = list(songsFound)[:6]
         return render(request, 'music/searchResults.html',
-                      {'songsFound': songsFound, 'playlistsFound': playlistsFound})
+                      {'songsFound': songsFound, 'playlistsFound': playlistsFound, 'all_liked': all_liked, 'myPlaylists': myPlaylists})
     else:
-        return redirect("/")
+        return redirect('/')
 
 
 def deletePlaylist(request):
@@ -109,6 +106,8 @@ def delete_song_from_playlist(request):
             playlist = get_object_or_404(Playlist, pk=playlist_id)
             song = get_object_or_404(Song, pk=song_id)
             playlist.songs.remove(song)
+            playlist.plays = playlist.songs.count()
+            playlist.save()
         return redirect('music:playlist', playlist_id=playlist_id)
     return redirect('music:playlist')
 
@@ -127,8 +126,9 @@ def add_song(request):
         name = request.POST["name"]
         artist = request.POST["artist"]
         song = request.FILES.get("song")
+        genre = request.POST.get("genre")
         image = request.FILES.get("image")
-        newsong = Song(name=name, artist=artist, song=song, image=image)
+        newsong = Song(name=name, artist=artist, song=song, image=image, genre=genre)
         newsong.save()
         return redirect("homepage")
 
@@ -149,7 +149,7 @@ def likesong(request):
             song = get_object_or_404(Song, song_id=song_id)
             if state == 'liked':
                 if song.liked_by_users.filter(id=user.id).exists():
-                    song.liked_by_users.remove(user)
+                    user.liked_songs.remove(song)
             else:
                 user.liked_songs.add(song)
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

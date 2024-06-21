@@ -91,6 +91,13 @@
                 <br>
                 <p style="margin: 0">Add image:</p><input type="file" name="image" accept="image/*">
                 <br>
+                <p style="margin: 0">Choose a genre:</p>
+                <select name="genre" id="genre">
+                    {% for value, display in genres %}
+                        <option value="{{ value }}" {% if value == request.GET.genre %}selected{% endif %}>{{ display }}</option>
+                    {% endfor %}
+                </select>
+                <br>
                 <input id="submitb" type='submit' value="Add Song">
             </div>
         </form>

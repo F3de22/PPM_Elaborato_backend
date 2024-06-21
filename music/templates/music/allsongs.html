@@ -6,15 +6,15 @@
 
 {% block main-content %}
     <h2 style="text-align: center; margin: 10px 0; font-size: 3rem">All Songs</h2>
-    <form style="right:20px; top: 120px; position: absolute" method="GET">
-        <label for="genre">filter by genre:</label>
+    <form style="right:50px; top: 120px; position: absolute" method="GET">
+        <label for="genre">Filter by genre:</label>
         <select name="genre" id="genre">
-            <option value="">Tutti i generi</option>
-            {% for genre in genres %}
-                <option value="{{ genre }}">{{ genre }}</option>
+            <option value="">All genres</option>
+            {% for value, display in genres %}
+                <option value="{{ value }}" {% if value == request.GET.genre %}selected{% endif %}>{{ display }}</option>
             {% endfor %}
         </select>
-        <button type="submit">Filtra</button>
+        <button type="submit">Filter</button>
     </form>
     {% if allsongs %}
         <p style="margin-left: 25px">There are {{ allsongs|length }} songs:</p>
@@ -39,9 +39,9 @@
                         <form id="my_form" action="{% url 'music:likesong' %}" method="post" style="margin:0">
                             {% csrf_token %}
                             <input type="hidden" id="helo" name="song_id" value="{{i.song_id}}">
-                            <input type="hidden" id="state" name="state" value="{{ state }}">
+                            <input type="hidden" id="state" name="state" value="{% if i in all_liked %}liked{%else%}{% endif %}">
                             <button type="submit" id="submitremove" style="color: red; margin-top: 15px;">
-                                <a id="likeButton" class="fa-regular fa-heart fa-2x {% if state == 'liked' %}liked{% endif %}" data-song-id="{{i.song_id}}" style="color: black; margin-bottom:20px;" onclick="toggleHeart(this)"></a>
+                                <a id="likeButton" class="{% if i in all_liked %}fa-solid {% else %}fa-regular {% endif %}fa-heart" data-song-id="{{i.song_id}}" style="color: black; margin-bottom:20px;" onclick="toggleHeart(this)"></a>
                             </button>
                         </form>
                     {% endif %}
@@ -53,42 +53,44 @@
         </div>
 
         <div id="divId">
-        {% if my_playlists %}
-            <label for="playlist_{{ song.song_id }}" style="margin: 5px; font-size: 0.75rem; font-weight: 700; color: rgb(138, 138, 138); text-align: left;">Add This Song To Your Playlist</label>
-            <form style="margin:0;" id="my_form" action="{% url 'music:addSongToPlaylist' %}" method="post">
-                {% csrf_token %}
-                <input type="hidden" name="song_id" id="song_id">
-                <select name="playlist_id" id="playlist_id">
-                {% for playlist in my_playlists %}
-                    <option value="{{playlist.playlist_id}}" class="left-panel-btn" style="margin:0;">{{playlist.playlist_name}}</option><br>
-                {% endfor %}
-                </select>
-                <button class="submitb" type="submit">Add to Playlist</button>
-            </form>
-        {% else %}
-            <p style="margin: 5px; font-size: 0.8rem; font-weight: 700; color: rgb(138, 138, 138); text-align: left;">You don't have any Playlist.</p>
-            <a class="create-p" onclick="$('#divId').css({display: 'none'}); document.getElementById('modal-wrapper-playlist').style.display='block'"><i class="fas fa-plus"></i> Create Playlist</a>
-        {% endif %}
-    </div>
+            {% if my_playlists %}
+                <label for="playlist_{{ song.song_id }}" style="margin: 5px; font-size: 0.75rem; font-weight: 700; color: rgb(138, 138, 138); text-align: left;">Add This Song To Your Playlist</label>
+                <form style="margin:0;" id="my_form" action="{% url 'music:addSongToPlaylist' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="song_id" id="song_id">
+                    <select name="playlist_id" id="playlist_id">
+                    {% for playlist in my_playlists %}
+                        <option value="{{playlist.playlist_id}}" class="left-panel-btn" style="margin:0;">{{playlist.playlist_name}}</option><br>
+                    {% endfor %}
+                    </select>
+                    <button class="submitb" type="submit">Add to Playlist</button>
+                </form>
+            {% else %}
+                <p style="margin: 5px; font-size: 0.8rem; font-weight: 700; color: rgb(138, 138, 138); text-align: left;">You don't have any Playlist.</p>
+                <a class="create-p" onclick="$('#divId').css({display: 'none'}); document.getElementById('modal-wrapper-playlist').style.display='block'"><i class="fas fa-plus"></i> Create Playlist</a>
+            {% endif %}
+        </div>
 
     <script>
-        document.getElementById('likeButton').addEventListener('click', function(e) {
+        function toggleHeart(element) {
         e.preventDefault();
+        var songId = element.getAttribute('data-song-id');
         var stateElement = document.getElementById('state').value;
         var currentState = stateElement.value;
         var newState = currentState === 'liked' ? '' : 'liked';
 
         stateElement.value = newState;
         if (newState === 'liked') {
-            document.getElementById('likeButton').classList.add('liked');
+            document.getElementById('likeButton').classList.add('liked' , 'fas', 'heart-red');
         } else {
             document.getElementById('likeButton').classList.remove('liked');
+            document.getElementById('likeButton').classList.add('fa-regular');
         }
         document.getElementById('my_form').submit();
-    });
+    }
 
 
-        function toggleHeart(element) {
+        <!--function toggleHeart(element) {
             if (element.classList.contains('fa-regular')) {
                 element.classList.remove('fa-regular');
                 element.classList.add('fas', 'heart-red');
@@ -96,7 +98,7 @@
                 element.classList.remove('fas', 'heart-red');
                 element.classList.add('fa-regular');
             }
-        }
+        } -->
 
     </script>
 {% endblock %}

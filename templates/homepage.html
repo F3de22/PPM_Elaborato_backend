@@ -43,7 +43,7 @@
     </div>
 
     {% if user.is_authenticated %}
-    <h2 id="play-tit" class="home-tit">Your Paylists</h2>
+    <h2 id="play-tit" class="home-tit">Your Playlists</h2>
     {% if my_playlists %}
             <p style="margin-left: 20px">You have {{ my_playlists|length }} playlists:</p>
         {% else %}
@@ -58,7 +58,7 @@
         {% endfor %}
     </div>
     {% else %}
-        <h2 id="play-tit" class="home-tit">Your Paylists</h2>
+        <h2 id="play-tit" class="home-tit">Your Playlists</h2>
         <p style="margin-left: 20px">If you want to have your playlists <a href="{% url 'users:login' %}"><u>LOGIN HERE</u></a></p>
     {% endif %}
     
